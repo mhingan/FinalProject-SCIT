@@ -1,6 +1,7 @@
 package com.example.finalprojectscit.service;
 
 import com.example.finalprojectscit.model.Post;
+import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.PostRepository;
 import com.example.finalprojectscit.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,14 @@ public class PostService {
     public PostService(PostRepository postRepository, UserRepository userRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+    }
+
+    //TODO - CHECK FUNCTIONALITY
+    public void createPost(Post post) {
+        //validation
+        post.setLiked(false);
+        post.setLikes(0);
+        postRepository.save(post);
     }
 
     public List<Post> findAll() {
@@ -53,18 +62,32 @@ public class PostService {
         return postsWitName;
     }
 
-    public void likePost(Post post) {
+    //TODO - CHECK FUNCTIONALITY
+    public void likePost(Post post, User user) {
         int totalLikes;
+        int userRankingInitial = 0;
         if (!post.isLiked()) {
             totalLikes = post.getLikes() + 1;
             post.setLikes(totalLikes);
             post.setLiked(true);
+            if (totalLikes > 5) {
+                user.setRanking(userRankingInitial + 5);
+            }
         } else {
             totalLikes = post.getLikes() - 1;
             post.setLikes(totalLikes);
             post.setLiked(false);
+            user.setRanking(userRankingInitial - 5);
         }
         post.setLikes(totalLikes);
+        postRepository.save(post);
+//        userRepository.save(user);
+    }
+
+
+    //TODO - CHECK FUNCTIONALITY
+    public List<Post> displayByUserRanking() {
+
     }
 
 }
