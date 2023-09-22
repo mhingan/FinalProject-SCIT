@@ -23,4 +23,5 @@ public class Post {
     private String description;
     private int likes;
     private LocalDate post_date;
+    private boolean isLiked;
 }
