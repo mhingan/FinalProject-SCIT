@@ -93,9 +93,8 @@ public class PostService {
     }
 
 
-    public void likePostV2(Post post, User user){
-        //todo
-    }
+
+
 
 
     public List<Post> findAllPostsOfAUser(User user) {
