@@ -81,7 +81,7 @@ public class UserController {
         return "profile";
     }
 
-    //send update info request
+    //send update info request - v1
     @RequestMapping(value = "/my-profile", method = RequestMethod.POST)
     public String sendUpdateDataRequest(@ModelAttribute User user) {
         User existingUser = userService.findCurrentUser();
@@ -93,5 +93,8 @@ public class UserController {
         userService.update(existingUser);
         return "redirect:/my-profile";
     }
+
+
+
 
 }
