@@ -53,4 +53,16 @@ public class UserService {
         String currentUserName = authentication.getName();
         return (User) userRepository.findByEmail(currentUserName).orElse(null);
     }
+
+    public void deleteUser(){
+        User user = findCurrentUser();
+        //todo: sa sterg si postarile userului din db cand contul e sters
+        if(user.getPosts().isEmpty()){
+            userRepository.delete(user);
+        } else {
+            //todo: sa schimb Runtime cu Custom (dupa impl clasei)
+            throw new RuntimeException("User cannot be deleted. Associated posts found in db.");
+        }
+
+    }
 }
