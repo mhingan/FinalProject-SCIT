@@ -4,6 +4,7 @@ import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.PostRepository;
 import com.example.finalprojectscit.repository.UserRepository;
+import com.example.finalprojectscit.utils.NewUserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.Authentication;
@@ -18,11 +19,13 @@ import java.util.stream.Collectors;
 public class UserService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private NewUserValidation newUserValidation;
 
     @Autowired
-    public UserService(PostRepository postRepository, UserRepository userRepository) {
+    public UserService(PostRepository postRepository, UserRepository userRepository, NewUserValidation newUserValidation) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.newUserValidation = newUserValidation;
     }
 
     public List<User> findAll() {
@@ -34,14 +37,14 @@ public class UserService {
     }
 
     public void createUser(User user) {
-       //todo: userValidation.validateNewUser(user);
+        newUserValidation.validateUser(user);
         System.out.println("a intrat in create user");
         System.out.println("a setat user role");
-            user.setRole("USER");
+        user.setRole("USER");
         System.out.println("a setat user rank");
-            user.setRanking(0);
+        user.setRanking(0);
         System.out.println("a setat user post");
-            user.setPosts(null);
+        user.setPosts(null);
         userRepository.save(user);
         System.out.println("a salvat userul");
     }
@@ -68,14 +71,14 @@ public class UserService {
         return (User) userRepository.findByEmail(currentUserName).orElse(null);
     }
 
-    public void deleteUser(){
+    public void deleteUser() {
         User user = findCurrentUser();
         int userId = user.getId();
         //todo:check if working like that
         List<Post> userPosts = postRepository.findByUserId(userId);
         postRepository.deleteAll(userPosts);
 
-        if(user.getPosts().isEmpty()){
+        if (user.getPosts().isEmpty()) {
             userRepository.delete(user);
         } else {
             //todo: sa schimb Runtime cu Custom (dupa impl clasei)
