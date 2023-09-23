@@ -33,14 +33,13 @@ public class PostController {
     @PostMapping("/new")
     public String sendPostCreationRequest(@RequestParam("title") String title,
                                           @RequestParam("category") String category,
-                                          @RequestParam("description") String description,
-                                          @RequestParam("post_date") LocalDate date) {
+                                          @RequestParam("description") String description
+    ) {
         User user = userService.findCurrentUser();
         Post post = Post.builder()
                 .title(title)
                 .category(category)
                 .description(description)
-                .post_date(date)
                 .user(user)
                 .build();
 
@@ -97,14 +96,14 @@ public class PostController {
 
     //getAllSortedByNewest
     @GetMapping("/dashboard/newest")
-    public String getByNewest(Model model){
+    public String getByNewest(Model model) {
         List<Post> allPosts = postService.displayByNewest();
         model.addAttribute("allPosts", allPosts);
         return "dashboard";
     }
 
     @GetMapping("/dashboard/get_that_contains")
-    public String getByTitleMatch(@RequestParam("searchWord")String searchWord, Model model){
+    public String getByTitleMatch(@RequestParam("searchWord") String searchWord, Model model) {
         List<Post> allPosts = postService.searchByTitle(searchWord);
         model.addAttribute("allPosts", allPosts);
         return "dashboard";

@@ -9,6 +9,7 @@ import com.example.finalprojectscit.utils.NewPostValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +31,8 @@ public class PostService {
     //TODO - CHECK FUNCTIONALITY
     public void createPost(Post post) {
         postValidation.validatePost(post);
+        LocalDate now = LocalDate.now();
+        post.setPost_date(now);
         post.setLiked(false);
         post.setLikes(0);
         postRepository.save(post);
