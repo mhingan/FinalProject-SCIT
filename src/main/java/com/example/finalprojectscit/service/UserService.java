@@ -1,12 +1,15 @@
 package com.example.finalprojectscit.service;
 
+import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.PostRepository;
 import com.example.finalprojectscit.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -25,5 +28,19 @@ public class UserService {
 
     public User findById(int id) {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("No user found with id: " + id));
+    }
+
+
+    //todo: sa fac acelasi lucru dar pentru postari: afisate in functie de rankig-ul userului
+    public List<User> usersByRank() {
+        List<User> users = userRepository.findAll();
+
+        List<User> filteredUsers = users.stream()
+                .filter(user -> user.getRanking() > 5)
+                .toList();
+
+        return filteredUsers.stream()
+                .sorted(Comparator.comparing(User::getRanking))
+                .collect(Collectors.toList());
     }
 }
