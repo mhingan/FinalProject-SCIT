@@ -1,5 +1,6 @@
 package com.example.finalprojectscit.service;
 
+import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.PostRepository;
 import com.example.finalprojectscit.repository.UserRepository;
@@ -56,7 +57,11 @@ public class UserService {
 
     public void deleteUser(){
         User user = findCurrentUser();
-        //todo: sa sterg si postarile userului din db cand contul e sters
+        int userId = user.getId();
+        //todo:check if working like that
+        List<Post> userPosts = postRepository.findByUserId(userId);
+        postRepository.deleteAll(userPosts);
+
         if(user.getPosts().isEmpty()){
             userRepository.delete(user);
         } else {
