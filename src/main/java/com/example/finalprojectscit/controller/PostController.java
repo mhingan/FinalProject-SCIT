@@ -6,11 +6,13 @@ import com.example.finalprojectscit.service.PostService;
 import com.example.finalprojectscit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -50,4 +52,17 @@ public class PostController {
         //todo: chanage return file
         return "index";
     }
+
+    //view - all posts of a user
+    @GetMapping("/my-posts")
+    public String getAllCurrentUserPosts(Model model, int id){
+        User user = userService.findCurrentUser();
+        List<Post> allUPosts = postService.findAllPostsOfAUser(user);
+        model.addAttribute("allUPosts", allUPosts);
+        return "post/my-posts";
+    }
+
+
+    //get edit post page
+//    @GetMapping("/edit/{id}")
 }

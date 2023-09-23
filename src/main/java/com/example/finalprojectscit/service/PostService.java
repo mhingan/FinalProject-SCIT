@@ -84,7 +84,9 @@ public class PostService {
 
     }
 
-
+    public List<Post> findAllPostsOfAUser(User user) {
+        return user.getPosts();
+    }
 
 
 }
