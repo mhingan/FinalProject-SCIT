@@ -1,5 +1,6 @@
 package com.example.finalprojectscit.service;
 
+import com.example.finalprojectscit.comparators.PostDateComparator;
 import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.PostRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -63,6 +65,7 @@ public class PostService {
     }
 
     //TODO - CHECK FUNCTIONALITY
+    //todo: not working fine
     public void likePost(Post post, User user) {
         int totalLikes = post.getLikes();
         int userRankingInitial = user.getRanking();
@@ -90,6 +93,11 @@ public class PostService {
     }
 
 
+    public void likePostV2(Post post, User user){
+        //todo
+    }
+
+
     public List<Post> findAllPostsOfAUser(User user) {
         return user.getPosts();
     }
@@ -99,6 +107,19 @@ public class PostService {
         //todo: validate
         postRepository.save(existingPost);
     }
+
+    //todo:check if is ok
+    public List<Post> displayByNewest(){
+        List<Post> allUnsorted = postRepository.findAll();
+        Collections.sort(allUnsorted, new PostDateComparator());
+        return allUnsorted;
+    }
+
+
+    //search by title
+
+
+    //display by category
 
 
 }
