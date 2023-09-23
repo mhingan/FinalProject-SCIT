@@ -1,14 +1,18 @@
 package com.example.finalprojectscit.controller;
 
+import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.service.PostService;
 import com.example.finalprojectscit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -35,7 +39,12 @@ public class UserController {
 
     //getDashboard
     @GetMapping("/dashboard")
-    public String getDashboard(){
+    public String getDashboard(Model model){
+        //todo:sort by user rank and date added
+
+        List<Post> allPosts = postService.findAll();
+        model.addAttribute("allPosts", allPosts);
+
         return "dashboard";
     }
 

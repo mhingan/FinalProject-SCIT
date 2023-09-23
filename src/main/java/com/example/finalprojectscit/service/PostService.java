@@ -84,7 +84,13 @@ public class PostService {
 
     }
 
+    public List<Post> findAllPostsOfAUser(User user) {
+        return user.getPosts();
+    }
 
 
-
+    public void updatePost(Post existingPost) {
+        //todo: validate
+        postRepository.save(existingPost);
+    }
 }
