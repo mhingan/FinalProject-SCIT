@@ -64,25 +64,36 @@ public class PostService {
 
     //TODO - CHECK FUNCTIONALITY
     public void likePost(Post post, User user) {
-        int totalLikes;
-        int userRankingInitial = 0;
+        int totalLikes = post.getLikes();
+        int userRankingInitial = user.getRanking();
+
         if (!post.isLiked()) {
-            totalLikes = post.getLikes() + 1;
-            post.setLikes(totalLikes);
+            // User is liking the post
+            totalLikes++;
             post.setLiked(true);
+            post.setLikes(totalLikes);
+
             if (totalLikes > 5) {
+                // Update the user's ranking
                 user.setRanking(userRankingInitial + 5);
             }
         } else {
-            totalLikes = post.getLikes() - 1;
-            post.setLikes(totalLikes);
+            // User is unliking the post
+            totalLikes--;
             post.setLiked(false);
-            user.setRanking(userRankingInitial - 5);
-        }
-        post.setLikes(totalLikes);
-        postRepository.save(post);
+            post.setLikes(totalLikes);
 
+            if (totalLikes <= 5) {
+                // Update the user's ranking
+                user.setRanking(userRankingInitial - 5);
+            }
+        }
+
+        // Save the updated post and user
+        postRepository.save(post);
+        userRepository.save(user);
     }
+
 
     public List<Post> findAllPostsOfAUser(User user) {
         return user.getPosts();
@@ -93,4 +104,6 @@ public class PostService {
         //todo: validate
         postRepository.save(existingPost);
     }
+
+
 }
