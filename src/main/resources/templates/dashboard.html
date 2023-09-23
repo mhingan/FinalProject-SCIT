@@ -25,6 +25,16 @@
             color: #777;
             font-size: 14px;
         }
+
+
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -51,13 +61,18 @@
                 </li>
             </ul>
         </div>
+
+        <form th:action="@{/dashboard/get_that_contains}" method="get" class="search-form">
+            <div class="form-group search-input">
+                <input type="text" id="searchWord" name="searchWord" class="form-control" style="width: 300px">
+            </div>
+            <button type="submit" class="search-button btn btn-primary">Search</button>
+        </form>
     </div>
 </nav>
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <!-- Loop through the posts and display them -->
             <div th:each="post : ${allPosts}" class="tweet-box">
                 <h4 th:text="${post.title}"></h4>
                 <p class="post-date" th:text="'User: '+${post.user.id}"></p>

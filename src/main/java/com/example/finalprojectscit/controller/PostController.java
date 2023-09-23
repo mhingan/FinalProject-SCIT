@@ -103,5 +103,12 @@ public class PostController {
         return "dashboard";
     }
 
+    @GetMapping("/dashboard/get_that_contains")
+    public String getByTitleMatch(@RequestParam("searchWord")String searchWord, Model model){
+        List<Post> allPosts = postService.searchByTitle(searchWord);
+        model.addAttribute("allPosts", allPosts);
+        return "dashboard";
+    }
+
 
 }

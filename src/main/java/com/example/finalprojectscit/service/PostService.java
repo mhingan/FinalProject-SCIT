@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -116,6 +117,15 @@ public class PostService {
 
 
     //search by title
+    public List<Post> searchByTitle(String searchWord) {
+        List<Post> allPosts = postRepository.findAll();
+
+        List<Post> matchingPosts = allPosts.stream()
+                .filter(post -> post.getTitle().toLowerCase().contains(searchWord.toLowerCase()))
+                .collect(Collectors.toList());
+
+        return matchingPosts;
+    }
 
 
     //display by category
