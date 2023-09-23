@@ -38,15 +38,10 @@ public class UserService {
 
     public void createUser(User user) {
         newUserValidation.validateUser(user);
-        System.out.println("a intrat in create user");
-        System.out.println("a setat user role");
         user.setRole("USER");
-        System.out.println("a setat user rank");
         user.setRanking(0);
-        System.out.println("a setat user post");
         user.setPosts(null);
         userRepository.save(user);
-        System.out.println("a salvat userul");
     }
 
 
