@@ -24,7 +24,7 @@
                 <tr th:each="post : ${allUPosts}">
                     <td th:text="${post.title}">titlu</td>
                     <td th:text="${post.category}">categorie</td>
-                    <td th:text="${#dates.format(post.post_date, 'yyyy-MM-dd')}">Post Date</td>
+                    <td th:text="${#temporals.format(post.post_date, 'yyyy-MM-dd')}">Post Date</td>
                     <td>
                         <a th:href="@{/edit/{id}(id=${post.id})}" class="btn btn-primary">Edit</a>
                     </td>

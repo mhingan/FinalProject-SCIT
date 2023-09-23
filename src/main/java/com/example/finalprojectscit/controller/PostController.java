@@ -55,7 +55,7 @@ public class PostController {
 
     //view - all posts of a user
     @GetMapping("/my-posts")
-    public String getAllCurrentUserPosts(Model model, int id){
+    public String getAllCurrentUserPosts(Model model){
         User user = userService.findCurrentUser();
         List<Post> allUPosts = postService.findAllPostsOfAUser(user);
         model.addAttribute("allUPosts", allUPosts);
