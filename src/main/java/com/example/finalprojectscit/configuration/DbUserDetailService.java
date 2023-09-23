@@ -24,6 +24,11 @@ public class DbUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User userFromDatabase = (User) userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found in database with this name"));
+        if(!userFromDatabase.is_active()){
+            //todo: throw custom exception
+            throw new RuntimeException("User is not active");
+        }
+
         return new MyUserDetails(userFromDatabase);
     }
 }
