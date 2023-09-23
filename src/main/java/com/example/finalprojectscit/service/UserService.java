@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,6 +39,7 @@ public class UserService {
 
     public void createUser(User user) {
         newUserValidation.validateUser(user);
+        user.set_active(true);
         user.setRole("USER");
         user.setRanking(0);
         user.setPosts(null);
@@ -84,5 +86,41 @@ public class UserService {
 
     public void update(User user) {
         userRepository.save(user);
+    }
+
+    public void setUserActive(int id){
+        User user = userRepository.findById(id).orElseThrow(()->new RuntimeException("no user found with id: " + id));
+        user.set_active(true);
+        userRepository.save(user);
+    }
+
+    public void setUserInactive(int id){
+        User user = userRepository.findById(id).orElseThrow(()->new RuntimeException("no user found with id: " + id));
+        user.set_active(false);
+        userRepository.save(user);
+    }
+
+    //todo: make more verifications
+    public List<User> findActiveUsers() {
+        List<User> all = userRepository.findAll();
+        List<User> active = new ArrayList<>();
+        for(User user: all){
+            if(user.is_active()){
+                active.add(user);
+            }
+        }
+        return active;
+    }
+
+    //todo: make more verifications
+    public List<User> findInactiveUsers() {
+        List<User> all = userRepository.findAll();
+        List<User> inactive = new ArrayList<>();
+        for(User user: all){
+            if(!user.is_active()){
+                inactive.add(user);
+            }
+        }
+        return inactive;
     }
 }
