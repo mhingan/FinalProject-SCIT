@@ -1,11 +1,15 @@
 package com.example.finalprojectscit.controller;
 
+import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.service.PostService;
 import com.example.finalprojectscit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -27,8 +31,37 @@ public class UserController {
     //login-get
     @GetMapping("/login")
     public String getLoginPage(){
+        return "login";
+    }
+
+    //getDashboard
+    @GetMapping("/dashboard")
+    public String getDashboard(){
         return "dashboard";
     }
 
+
+    //getSignUp page
+    @GetMapping("/signup")
+    public String getSignUpPage(){
+        return "signup";
+    }
+
+    //send signupRequest
+    @PostMapping("/signup")
+    public String sendSignUpRequest(@RequestParam("first_name")String first_name,
+                                    @RequestParam("last_name")String last_name,
+                                    @RequestParam("email")String email,
+                                    @RequestParam("password")String password){
+        User user = User.builder()
+                .first_name(first_name)
+                .last_name(last_name)
+                .email(email)
+                .password(BCrypt.hashpw(password, BCrypt.gensalt()))
+                .build();
+
+        userService.createUser(user);
+        return "redirect:/login";
+    }
 
 }

@@ -33,6 +33,14 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("No user found with id: " + id));
     }
 
+    public void createUser(User user) {
+       //todo: userValidation.validateNewUser(user);
+            user.setRole("USER");
+            user.setRanking(0);
+            user.setPosts(null);
+        userRepository.save(user);
+    }
+
 
     //todo: sa fac acelasi lucru dar pentru postari: afisate in functie de rankig-ul userului
     public List<User> usersByRank() {
