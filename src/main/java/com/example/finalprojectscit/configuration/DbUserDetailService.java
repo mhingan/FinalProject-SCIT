@@ -4,6 +4,7 @@
 package com.example.finalprojectscit.configuration;
 
 
+import com.example.finalprojectscit.exception.CustomValidationException;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,7 @@ public class DbUserDetailService implements UserDetailsService {
         User userFromDatabase = (User) userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found in database with this name"));
         if(!userFromDatabase.is_active()){
-            //todo: throw custom exception
-            throw new RuntimeException("User is not active");
+            throw new CustomValidationException("User is not active");
         }
 
         return new MyUserDetails(userFromDatabase);

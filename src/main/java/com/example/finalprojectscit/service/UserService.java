@@ -1,5 +1,6 @@
 package com.example.finalprojectscit.service;
 
+import com.example.finalprojectscit.exception.CustomValidationException;
 import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.PostRepository;
@@ -34,7 +35,7 @@ public class UserService {
     }
 
     public User findById(int id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("No user found with id: " + id));
+        return userRepository.findById(id).orElseThrow(() -> new CustomValidationException("No user found with id: " + id));
     }
 
     public void createUser(User user) {
@@ -78,8 +79,7 @@ public class UserService {
         if (user.getPosts().isEmpty()) {
             userRepository.delete(user);
         } else {
-            //todo: sa schimb Runtime cu Custom (dupa impl clasei)
-            throw new RuntimeException("User cannot be deleted. Associated posts found in db.");
+            throw new CustomValidationException("User cannot be deleted. Associated posts found in db.");
         }
 
     }
@@ -89,13 +89,13 @@ public class UserService {
     }
 
     public void setUserActive(int id){
-        User user = userRepository.findById(id).orElseThrow(()->new RuntimeException("no user found with id: " + id));
+        User user = userRepository.findById(id).orElseThrow(()->new CustomValidationException("no user found with id: " + id));
         user.set_active(true);
         userRepository.save(user);
     }
 
     public void setUserInactive(int id){
-        User user = userRepository.findById(id).orElseThrow(()->new RuntimeException("no user found with id: " + id));
+        User user = userRepository.findById(id).orElseThrow(()->new CustomValidationException("no user found with id: " + id));
         user.set_active(false);
         userRepository.save(user);
     }
