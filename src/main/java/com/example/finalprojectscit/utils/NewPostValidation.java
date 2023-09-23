@@ -9,7 +9,6 @@ import java.time.LocalDate;
 public class NewPostValidation {
     public void validatePost(Post post) {
         validate_title(post);
-        validate_date(post);
         validate_description(post);
 
     }
@@ -24,16 +23,6 @@ public class NewPostValidation {
         }
     }
 
-    private void validate_date(Post post) {
-        LocalDate postDate = post.getPost_date();
-        LocalDate now = LocalDate.now();
-
-        if (postDate.isBefore(now) || postDate.isAfter(now)) {
-            //todo: throw custom
-            //todo: implement the date to can't be set by user
-            throw new RuntimeException("Post Date can't be set by user.");
-        }
-    }
 
     private void validate_title(Post post) {
         String postTitle = post.getTitle();
