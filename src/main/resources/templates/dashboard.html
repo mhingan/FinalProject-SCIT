@@ -2,10 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>My Posts</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for tweet-like boxes */
+        .tweet-box {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+
+        .tweet-box h4 {
+            font-weight: bold;
+        }
+
+        .tweet-box p {
+            margin-top: 10px;
+        }
+
+        .tweet-box .post-date {
+            color: #777;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-hello, you are logged in
-<a class="nav-link" href="http://localhost:8080/login?logout=true"><button class="btn btn-danger btn-logout">Logout</button></a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/my-posts">My Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/new">New Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- Loop through the posts and display them -->
+            <div th:each="post : ${allPosts}" class="tweet-box">
+                <h4 th:text="${post.title}"></h4>
+                <p class="post-date" th:text="'User: '+${post.user.id}"></p>
+                <p class="post-date" th:text="'Created at: ' + ${#temporals.format(post.post_date, 'yyyy-MM-dd')}"></p>
+                <p th:text="'Category: ' + ${post.category}"></p>
+                <p th:text="'Description: ' + ${post.description}"></p>
+                <p th:text="${post.likes} + ' likes'"></p>
+                <form th:action="@{/like}" method="post">
+                    <input type="hidden" name="postId" th:value="${post.id}"/>
+                    <button type="submit" class="btn btn-success btn-sm">Like</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Include Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
