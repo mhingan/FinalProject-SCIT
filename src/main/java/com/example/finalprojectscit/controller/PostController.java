@@ -85,14 +85,17 @@ public class PostController {
     }
 
     @PostMapping("/like/{postId}")
-    public ResponseEntity<String> likePost(@PathVariable int postId) {
+    public ResponseEntity<Void> likePost(@PathVariable int postId) {
         User currentUser = userService.findCurrentUser();
         Post post = postService.findById(postId);
 
+        if (post == null) {
+            return ResponseEntity.notFound().build();
+        }
 
         postService.likePost(post, currentUser);
 
-        return ResponseEntity.ok("Post liked/unliked successfully");
+        return ResponseEntity.noContent().build();
     }
 
 

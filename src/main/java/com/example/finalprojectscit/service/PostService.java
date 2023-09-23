@@ -68,28 +68,23 @@ public class PostService {
         int userRankingInitial = user.getRanking();
 
         if (!post.isLiked()) {
-            // User is liking the post
             totalLikes++;
             post.setLiked(true);
             post.setLikes(totalLikes);
 
             if (totalLikes > 5) {
-                // Update the user's ranking
                 user.setRanking(userRankingInitial + 5);
             }
         } else {
-            // User is unliking the post
             totalLikes--;
             post.setLiked(false);
             post.setLikes(totalLikes);
 
             if (totalLikes <= 5) {
-                // Update the user's ranking
                 user.setRanking(userRankingInitial - 5);
             }
         }
 
-        // Save the updated post and user
         postRepository.save(post);
         userRepository.save(user);
     }
