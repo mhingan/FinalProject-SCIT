@@ -25,6 +25,7 @@ public class User {
     private String email;
     private String password;
     private int ranking;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts;
 
 
