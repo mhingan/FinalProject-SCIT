@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Confirmation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="row mt-3">
+    <div class="col-md-6">
+        <a href="/admin/panel" class="btn btn-secondary btn-block">Cancel</a>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>Manage user account</h1>
+        </div>
+    </div>
+    <br/><br/>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="alert alert-danger" role="alert">
+                <form method="post" th:action="@{/admin/manage/setInactive/{id}(id=${user.id})}">
+                    <h3>Set account: INACTIVE</h3>
+                    <p class="font-weight-lighter">Are you sure you want to deactivate this account?</p>
+                    <p class="font-weight-lighter">This action will mark this account as inactive.</p>
+                    <button type="submit" class="btn btn-danger">Deactivate</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-success" role="alert">
+                <form method="post" th:action="@{/admin/manage/setActive/{id}(id=${user.id})}">
+                    <h3>Set account: ACTIVE</h3>
+                    <p class="font-weight-lighter">Mark this request as active.</p>
+                    <p class="font-weight-lighter">This action will activate this user account.</p>
+                    <button type="submit" class="btn btn-success">Activate</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
