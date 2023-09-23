@@ -5,6 +5,8 @@ import com.example.finalprojectscit.repository.PostRepository;
 import com.example.finalprojectscit.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -42,5 +44,13 @@ public class UserService {
         return filteredUsers.stream()
                 .sorted(Comparator.comparing(User::getRanking))
                 .collect(Collectors.toList());
+    }
+
+
+    //todo: check if ok when logged in
+    public User findCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return (User) userRepository.findByEmail(currentUserName).orElse(null);
     }
 }
