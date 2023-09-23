@@ -3,8 +3,6 @@ package com.example.finalprojectscit.utils;
 import com.example.finalprojectscit.model.Post;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-
 @Component
 public class NewPostValidation {
     public void validatePost(Post post) {
