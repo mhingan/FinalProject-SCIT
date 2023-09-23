@@ -5,6 +5,7 @@ import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.service.PostService;
 import com.example.finalprojectscit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +62,6 @@ public class PostController {
     }
 
 
-
     @GetMapping("/edit/{id}")
     public String getEditPostPage(@PathVariable("id") int id, Model model) {
         Post post = postService.findById(id);
@@ -73,7 +73,7 @@ public class PostController {
 
     //send update request
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String sendEditRequest(@PathVariable("id")int id, @ModelAttribute Post post){
+    public String sendEditRequest(@PathVariable("id") int id, @ModelAttribute Post post) {
         Post existingPost = postService.findById(id);
 
         existingPost.setTitle(post.getTitle());
@@ -83,5 +83,17 @@ public class PostController {
         postService.updatePost(existingPost);
         return "redirect:/my-posts";
     }
+
+    @PostMapping("/like/{postId}")
+    public ResponseEntity<String> likePost(@PathVariable int postId) {
+        User currentUser = userService.findCurrentUser();
+        Post post = postService.findById(postId);
+
+
+        postService.likePost(post, currentUser);
+
+        return ResponseEntity.ok("Post liked/unliked successfully");
+    }
+
 
 }
