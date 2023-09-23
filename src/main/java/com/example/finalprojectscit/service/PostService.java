@@ -5,6 +5,7 @@ import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.PostRepository;
 import com.example.finalprojectscit.repository.UserRepository;
+import com.example.finalprojectscit.utils.NewPostValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +18,18 @@ import java.util.stream.Collectors;
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final NewPostValidation postValidation;
 
     @Autowired
-    public PostService(PostRepository postRepository, UserRepository userRepository) {
+    public PostService(PostRepository postRepository, UserRepository userRepository, NewPostValidation postValidation) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.postValidation = postValidation;
     }
 
     //TODO - CHECK FUNCTIONALITY
     public void createPost(Post post) {
-        //validation
+        postValidation.validatePost(post);
         post.setLiked(false);
         post.setLikes(0);
         postRepository.save(post);
@@ -94,21 +97,17 @@ public class PostService {
     }
 
 
-
-
-
-
     public List<Post> findAllPostsOfAUser(User user) {
         return user.getPosts();
     }
 
 
     public void updatePost(Post existingPost) {
-        //todo: validate
+        postValidation.validatePost(existingPost);
         postRepository.save(existingPost);
     }
 
-    public List<Post> displayByNewest(){
+    public List<Post> displayByNewest() {
         List<Post> allUnsorted = postRepository.findAll();
         Collections.sort(allUnsorted, new PostDateComparator());
         return allUnsorted;
@@ -125,7 +124,6 @@ public class PostService {
 
         return matchingPosts;
     }
-
 
 
 }
