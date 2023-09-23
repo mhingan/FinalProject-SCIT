@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -53,6 +52,7 @@ public class UserController {
                                     @RequestParam("last_name")String last_name,
                                     @RequestParam("email")String email,
                                     @RequestParam("password")String password){
+
         User user = User.builder()
                 .first_name(first_name)
                 .last_name(last_name)
@@ -61,6 +61,7 @@ public class UserController {
                 .build();
 
         userService.createUser(user);
+
         return "redirect:/login";
     }
 

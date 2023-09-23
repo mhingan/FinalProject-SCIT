@@ -19,14 +19,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    //todo - only in one place
-    /**
-     * Defines the security filter chain with authorization rules.
-     *
-     * @param http The HttpSecurity object to configure security.
-     * @return The configured SecurityFilterChain.
-     * @throws Exception If an exception occurs during configuration.
-     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -42,11 +34,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /**
-     * Creates a PasswordEncoder bean for encoding and decoding passwords.
-     *
-     * @return A PasswordEncoder bean.
-     */
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

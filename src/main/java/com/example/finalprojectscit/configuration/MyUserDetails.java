@@ -20,11 +20,6 @@ public class MyUserDetails implements UserDetails {
 
     private final User user;
 
-    /**
-     * Constructor that accepts a User object to build UserDetails.
-     *
-     * @param user The User object containing user details.
-     */
     public MyUserDetails(User user) {
         this.user = user;
     }
