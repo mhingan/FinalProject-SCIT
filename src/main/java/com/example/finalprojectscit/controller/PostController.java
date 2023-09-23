@@ -5,7 +5,6 @@ import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.service.PostService;
 import com.example.finalprojectscit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -94,6 +93,14 @@ public class PostController {
 
         //todo: do something better - not refresh
         return "redirect:/dashboard";
+    }
+
+    //getAllSortedByNewest
+    @GetMapping("/dashboard/newest")
+    public String getByNewest(Model model){
+        List<Post> allPosts = postService.displayByNewest();
+        model.addAttribute("allPosts", allPosts);
+        return "dashboard";
     }
 
 
