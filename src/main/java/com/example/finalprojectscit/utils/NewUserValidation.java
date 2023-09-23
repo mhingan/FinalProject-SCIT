@@ -2,15 +2,20 @@ package com.example.finalprojectscit.utils;
 
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class NewUserValidation {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    @Autowired
+    public NewUserValidation(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public void validateUser(User user) {
         validate_name(user);
-        //unique
         validate_email(user);
 
     }
