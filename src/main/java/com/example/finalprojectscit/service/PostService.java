@@ -89,4 +89,8 @@ public class PostService {
     }
 
 
+    public void updatePost(Post existingPost) {
+        //todo: validate
+        postRepository.save(existingPost);
+    }
 }
