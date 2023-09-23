@@ -1,5 +1,6 @@
 package com.example.finalprojectscit.controller;
 
+import com.example.finalprojectscit.exception.CustomValidationException;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.PostRepository;
 import com.example.finalprojectscit.repository.UserRepository;
@@ -56,7 +57,7 @@ public class AdminController {
     @GetMapping("/admin/manage/{id}")
     public String getManageUserPage(@PathVariable("id")int id, Model model){
         //todo: change throw custom exception
-        User user = userRepository.findById(id).orElseThrow(()->new RuntimeException("No user found"));
+        User user = userRepository.findById(id).orElseThrow(()->new CustomValidationException("No user found"));
         model.addAttribute("user", user);
         return "admin/manage-user-page";
     }

@@ -1,5 +1,6 @@
 package com.example.finalprojectscit.utils;
 
+import com.example.finalprojectscit.exception.CustomValidationException;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,10 @@ public class NewUserValidation {
 
         for (User user1 : userRepository.findAll()) {
             if (user.getEmail().equals(user1.getEmail())) {
-                //todo: change with custom Exception
-                throw new RuntimeException("This email is already used by another account");
+                throw new CustomValidationException("This email is already used by another account");
             } else {
                 if (!email.matches(regex)) {
-                    //todo: change with custom Exception
-                    throw new RuntimeException("Email syntax error: must be in the format name@email.com");
+                    throw new CustomValidationException("Email syntax error: must be in the format name@email.com");
                 }
             }
 
@@ -44,8 +43,7 @@ public class NewUserValidation {
         String lastName = user.getLast_name();
 
         if (!firstName.matches("^[A-Za-z]+$") || !lastName.matches("^[A-Za-z]+$")) {
-            //todo: change with custom Exception
-            throw new RuntimeException("Name syntax error: must contain only letters (e.g., John Smith)");
+            throw new CustomValidationException("Name syntax error: must contain only letters (e.g., John Smith)");
         }
         System.out.println("Validate Name: success");
     }

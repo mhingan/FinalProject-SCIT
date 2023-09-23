@@ -1,6 +1,7 @@
 package com.example.finalprojectscit.service;
 
 import com.example.finalprojectscit.comparators.PostDateComparator;
+import com.example.finalprojectscit.exception.CustomValidationException;
 import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.PostRepository;
@@ -43,7 +44,7 @@ public class PostService {
     }
 
     public Post findById(int id) {
-        return postRepository.findById(id).orElseThrow(() -> new RuntimeException("No post found with id: " + id));
+        return postRepository.findById(id).orElseThrow(() -> new CustomValidationException("No post found with id: " + id));
     }
 
     public List<Post> findByCategory(String category) {
@@ -52,7 +53,7 @@ public class PostService {
             if (post.getCategory().equals(category)) {
                 postsInCategory.add(post);
             } else {
-                throw new RuntimeException("No posts found in this category: " + category);
+                throw new CustomValidationException("No posts found in this category: " + category);
             }
         }
         return postsInCategory;
@@ -65,7 +66,7 @@ public class PostService {
             if (post.getTitle().matches(name)) {
                 postsWitName.add(post);
             } else {
-                throw new RuntimeException("No post with this title found: " + name);
+                throw new CustomValidationException("No post with this title found: " + name);
             }
         }
         return postsWitName;
