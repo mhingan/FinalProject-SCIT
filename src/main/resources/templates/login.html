@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <!-- Include Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<button onclick="window.location.href='/'" class="back-button-general">Back</button>
+<button onclick="window.location.href='/'" class="btn btn-secondary mt-2 ml-2">Back</button>
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-4">
       <h2 class="text-center">Login</h2>
       <form th:action="@{/login}" method="post" class="mt-4">
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" class="form-control" required="required" />
+        <div class="mb-3">
+          <label for="username" class="form-label">Username:</label>
+          <input type="text" id="username" name="username" class="form-control" required />
         </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" class="form-control" required="required" />
+        <div class="mb-3">
+          <label for="password" class="form-label">Password:</label>
+          <input type="password" id="password" name="password" class="form-control" required />
         </div>
         <div class="text-center">
           <button type="submit" class="btn btn-primary">Login</button>
         </div>
       </form>
       <div>
-        user: user2@user.com<br/>
-        admin: admin@company.com<br/>
+        User: user2@user.com<br/>
+        Admin: admin@company.com<br/>
         Password: parola
       </div>
       <p class="mt-3 text-center">
@@ -34,5 +36,8 @@
     </div>
   </div>
 </div>
+
+<!-- Include Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
