@@ -81,13 +81,10 @@ public class PostService {
         }
         post.setLikes(totalLikes);
         postRepository.save(post);
-//        userRepository.save(user);
-    }
-
-
-    //TODO - CHECK FUNCTIONALITY
-    public List<Post> displayByUserRanking() {
 
     }
+
+
+
 
 }
