@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,19 +25,19 @@ public class UserController {
 
     //index: logout
     @GetMapping("/")
-    public String getIndexLogout(){
+    public String getIndexLogout() {
         return "index";
     }
 
     //login-get
     @GetMapping("/login")
-    public String getLoginPage(){
+    public String getLoginPage() {
         return "login";
     }
 
     //getDashboard
     @GetMapping("/dashboard")
-    public String getDashboard(Model model){
+    public String getDashboard(Model model) {
         //todo:sort by user rank and date added
 
         List<Post> allPosts = postService.findAll();
@@ -51,16 +49,16 @@ public class UserController {
 
     //getSignUp page
     @GetMapping("/signup")
-    public String getSignUpPage(){
+    public String getSignUpPage() {
         return "signup";
     }
 
     //send signupRequest
     @PostMapping("/signup")
-    public String sendSignUpRequest(@RequestParam("first_name")String first_name,
-                                    @RequestParam("last_name")String last_name,
-                                    @RequestParam("email")String email,
-                                    @RequestParam("password")String password){
+    public String sendSignUpRequest(@RequestParam("first_name") String first_name,
+                                    @RequestParam("last_name") String last_name,
+                                    @RequestParam("email") String email,
+                                    @RequestParam("password") String password) {
 
         User user = User.builder()
                 .first_name(first_name)
@@ -72,6 +70,28 @@ public class UserController {
         userService.createUser(user);
 
         return "redirect:/login";
+    }
+
+
+    //getProfile page
+    @GetMapping("/my-profile")
+    public String getProfilePage(Model model) {
+        User user = userService.findCurrentUser();
+        model.addAttribute("user", user);
+        return "profile";
+    }
+
+    //send update info request
+    @RequestMapping(value = "/my-profile", method = RequestMethod.POST)
+    public String sendUpdateDataRequest(@ModelAttribute User user) {
+        User existingUser = userService.findCurrentUser();
+
+        existingUser.setFirst_name(user.getFirst_name());
+        existingUser.setLast_name(user.getLast_name());
+        existingUser.setEmail(user.getEmail());
+
+        userService.update(existingUser);
+        return "redirect:/my-profile";
     }
 
 }
