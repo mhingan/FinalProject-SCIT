@@ -88,24 +88,32 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void setUserActive(int id){
-        User user = userRepository.findById(id).orElseThrow(()->new CustomValidationException("no user found with id: " + id));
-        user.set_active(true);
-        userRepository.save(user);
+    public void setUserActive(int id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new CustomValidationException("no user found with id: " + id));
+        if (user.is_active()) {
+            throw new CustomValidationException("User is already active");
+        } else {
+            user.set_active(true);
+            userRepository.save(user);
+        }
     }
 
-    public void setUserInactive(int id){
-        User user = userRepository.findById(id).orElseThrow(()->new CustomValidationException("no user found with id: " + id));
-        user.set_active(false);
-        userRepository.save(user);
+    public void setUserInactive(int id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new CustomValidationException("no user found with id: " + id));
+        if (!user.is_active()) {
+            throw new CustomValidationException("User is already inactive");
+        } else {
+            user.set_active(false);
+            userRepository.save(user);
+        }
     }
 
     //todo: make more verifications
     public List<User> findActiveUsers() {
         List<User> all = userRepository.findAll();
         List<User> active = new ArrayList<>();
-        for(User user: all){
-            if(user.is_active()){
+        for (User user : all) {
+            if (user.is_active()) {
                 active.add(user);
             }
         }
@@ -116,8 +124,8 @@ public class UserService {
     public List<User> findInactiveUsers() {
         List<User> all = userRepository.findAll();
         List<User> inactive = new ArrayList<>();
-        for(User user: all){
-            if(!user.is_active()){
+        for (User user : all) {
+            if (!user.is_active()) {
                 inactive.add(user);
             }
         }
