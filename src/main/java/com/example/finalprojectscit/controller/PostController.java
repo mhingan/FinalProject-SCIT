@@ -84,14 +84,13 @@ public class PostController {
         return "redirect:/my-posts";
     }
 
+    //like a post
     @PostMapping("/like/{postId}")
     public String likePost(@PathVariable int postId) {
         User currentUser = userService.findCurrentUser();
         Post post = postService.findById(postId);
 
-
         postService.likePost(post, currentUser);
-
 
         //todo: do something better - not refresh
         return "redirect:/dashboard";
