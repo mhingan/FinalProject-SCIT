@@ -108,7 +108,6 @@ public class PostService {
         postRepository.save(existingPost);
     }
 
-    //todo:check if is ok
     public List<Post> displayByNewest(){
         List<Post> allUnsorted = postRepository.findAll();
         Collections.sort(allUnsorted, new PostDateComparator());
@@ -127,8 +126,6 @@ public class PostService {
         return matchingPosts;
     }
 
-
-    //display by category
 
 
 }
