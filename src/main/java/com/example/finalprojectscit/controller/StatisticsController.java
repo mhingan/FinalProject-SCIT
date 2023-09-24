@@ -3,6 +3,7 @@ package com.example.finalprojectscit.controller;
 import com.example.finalprojectscit.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ public class StatisticsController {
 
 
     @GetMapping("/admin/statistics")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public String statistics(Model model) {
         //user
         int allUsers = service.allUsers();
@@ -42,6 +44,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/admin/statistics/getPostsBetween")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public String getPostsBetween(@Param("start") LocalDate start,
                                   @Param("end") LocalDate end, Model model) {
         int postsNumber = service.allPostsInTimeInterval(start, end);

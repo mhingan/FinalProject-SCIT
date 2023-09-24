@@ -28,12 +28,14 @@ public class AdminController {
 
 
     @GetMapping("/admin/panel")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public String getAdminHomePage() {
         return "admin/admin-panel";
     }
 
 
     @GetMapping("/admin/active-users")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public String getAllActiveUsers(Model model) {
         List<User> all = userService.findActiveUsers();
         model.addAttribute("all", all);
@@ -41,6 +43,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/inactive-users")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public String getAllInactiveUsers(Model model) {
         List<User> all = userService.findInactiveUsers();
         model.addAttribute("all", all);
@@ -48,6 +51,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/manage/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public String getManageUserPage(@PathVariable("id") int id, Model model) {
         User user = userRepository.findById(id).orElseThrow(() -> new CustomValidationException("No user found"));
         model.addAttribute("user", user);
@@ -55,6 +59,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin/manage/setActive/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public String setUserActive(@PathVariable("id") int id) {
         User user = userService.findById(id);
         userService.setUserActive(id);
@@ -63,6 +68,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin/manage/setInactive/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public String setUserInactive(@PathVariable("id") int id) {
         User user = userService.findById(id);
         userService.setUserInactive(id);
@@ -70,7 +76,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/delete-user/{id}", method = RequestMethod.POST)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'ADMIN-MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public String deleteUser(@PathVariable("id") int id) {
         userService.deleteUser(id);
         return "admin/admin-panel";
