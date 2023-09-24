@@ -16,6 +16,40 @@ class NewPostValidationTest {
     }
 
     @Test
+    void test_validate_title_success() {
+        Post post = Post.builder()
+                .title("test")
+                .build();
+        assertDoesNotThrow(() -> newPostValidation.validate_title(post));
+        System.out.println("Test: Title: Title is present => OK");
+    }
+
+    @Test
+    void test_validate_title_empty() {
+        Post post = Post.builder()
+                .title("")
+                .build();
+        assertThrows(CustomValidationException.class, () ->
+        {
+            newPostValidation.validate_title(post);
+        });
+        System.out.println("Test: Title: Title is empty => OK");
+    }
+
+    @Test
+    void test_validate_title_longer_than_50() {
+        Post post = Post.builder()
+                .title("ajalamijdn  clpsngjbd dhdjbcng fhhdbkng fjdkpolnghjrtdss")
+                .build();
+        assertThrows(CustomValidationException.class, () ->
+        {
+            newPostValidation.validate_title(post);
+        });
+        System.out.println("Test: Title: Title is longer than 50 => OK");
+    }
+
+
+    @Test
     void test_validate_description_success() {
         Post post = Post.builder()
                 .title("test")
