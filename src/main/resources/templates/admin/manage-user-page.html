@@ -8,11 +8,6 @@
 </head>
 <button onclick="window.location.href='/admin/panel'" class="btn btn-secondary mt-2 ml-2">Back</button>
 <body>
-<div class="row mt-3">
-    <div class="col-md-6">
-        <a href="/admin/panel" class="btn btn-secondary btn-block">Cancel</a>
-    </div>
-</div>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -42,9 +37,11 @@
             </div>
         </div>
     </div>
+    <br/>
+    <p class="text-muted">**IRREVERSIBLE ACTION: <br/>Deleting a user will permanently remove their data.</p>
     <form id="delete-form" th:action="@{/admin/delete-user/{id}(id=${user.id})}" method="post">
         <input type="hidden" name="_method" value="DELETE">
-        <input type="submit" class="delete-button" value="Delete User">
+        <input type="submit" class="btn btn-danger" value="DELETE USER">
     </form>
 </div>
 
