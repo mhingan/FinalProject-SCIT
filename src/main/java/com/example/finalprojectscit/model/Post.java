@@ -21,10 +21,8 @@ public class Post {
     private String title;
     private String category;
     private String description;
-    private int likes;
     @Column(columnDefinition = "DATE")
     private LocalDate post_date;
-    private boolean isLiked;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 @Controller
@@ -82,19 +82,6 @@ public class PostController {
         return "redirect:/my-posts";
     }
 
-    //like a post
-    @PostMapping("/like/{postId}")
-    public String likePost(@PathVariable int postId) {
-        User currentUser = userService.findCurrentUser();
-        Post post = postService.findById(postId);
-
-        postService.likePost(post, currentUser);
-
-        //todo: do something better - not refresh
-        return "redirect:/dashboard";
-    }
-
-    //getAllSortedByNewest
     @GetMapping("/dashboard/newest")
     public String getByNewest(Model model) {
         List<Post> allPosts = postService.displayByNewest();
