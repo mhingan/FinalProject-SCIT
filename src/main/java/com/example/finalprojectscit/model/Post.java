@@ -21,6 +21,7 @@ public class Post {
     private String title;
     private String category;
     private String description;
+    private Integer favorites;
     @Column(columnDefinition = "DATE")
     private LocalDate post_date;
     @ManyToOne(cascade = CascadeType.ALL)

@@ -24,7 +24,6 @@ public class PostController {
     }
 
 
-    //get - create a new post page
     @GetMapping("/new")
     public String getCreateNewPostPage() {
         return "post/new-post";
