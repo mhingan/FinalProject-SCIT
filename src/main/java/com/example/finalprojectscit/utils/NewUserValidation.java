@@ -21,24 +21,29 @@ public class NewUserValidation {
 
     }
 
-    private void validate_email(User user) {
+    void validate_email(User user) {
         String email = user.getEmail();
         String regex = "^(.+)@(.+)$";
+
+        if (email == null) {
+            throw new CustomValidationException("Email cannot be null");
+        }
+
+        if (!email.matches(regex)) {
+            throw new CustomValidationException("Email syntax error: must be in the format name@email.com");
+        }
 
         for (User user1 : userRepository.findAll()) {
             if (user.getEmail().equals(user1.getEmail())) {
                 throw new CustomValidationException("This email is already used by another account");
-            } else {
-                if (!email.matches(regex)) {
-                    throw new CustomValidationException("Email syntax error: must be in the format name@email.com");
-                }
             }
-
         }
+
         System.out.println("Validate Email: success");
     }
 
-    private void validate_name(User user) {
+
+    void validate_name(User user) {
         String firstName = user.getFirst_name();
         String lastName = user.getLast_name();
 
