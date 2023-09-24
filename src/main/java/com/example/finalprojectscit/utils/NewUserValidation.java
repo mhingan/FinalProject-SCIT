@@ -47,8 +47,16 @@ public class NewUserValidation {
         String firstName = user.getFirst_name();
         String lastName = user.getLast_name();
 
+        if (firstName.isEmpty() || lastName.isEmpty()) {
+            throw new CustomValidationException("First name / Last name cannot be null");
+        }
+
         if (!firstName.matches("^[A-Za-z]+$") || !lastName.matches("^[A-Za-z]+$")) {
             throw new CustomValidationException("Name syntax error: must contain only letters (e.g., John Smith)");
+        }
+
+        if (firstName.length() > 20 || lastName.length() > 20) {
+            throw new CustomValidationException("Name must be lenghts max: 20");
         }
         System.out.println("Validate Name: success");
     }
