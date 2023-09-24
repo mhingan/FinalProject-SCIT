@@ -23,5 +23,5 @@ public class StatisticsService {
     //todo: getAllPostsWithDate....
     //todo:get all active users
     //todo: get all inactive users
-    //todo:
+    //todo: media postarilor pe users
 }
