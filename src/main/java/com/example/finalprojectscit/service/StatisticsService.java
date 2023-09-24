@@ -77,18 +77,18 @@ public class StatisticsService {
 
     //todo: check if is working, else delete it
     //media postarilor pe zi
-    public int postsAnnualMedia(){
+    public int postsAnnualMedia() {
         int media = 0;
         int currentYear = LocalDate.now().getYear();
         List<Post> all = postService.findAll();
         List<Post> thisYear = new ArrayList<>();
-        for(Post post: all){
-            if(post.getPost_date().getYear()==currentYear){
+        for (Post post : all) {
+            if (post.getPost_date().getYear() == currentYear) {
                 thisYear.add(post);
             }
-            media = thisYear.size()%365;
+
         }
-        return media;
+        return thisYear.size() % 365;
     }
 
 }
