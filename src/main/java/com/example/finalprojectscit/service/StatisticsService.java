@@ -47,9 +47,9 @@ public class StatisticsService {
         List<User> activeUsers = userService.findActiveUsers();
         List<User> usersWithRank = new ArrayList<>();
         for (User user : activeUsers) {
-            if (user.getRanking() == 100) {
+            if (user.getRanking() >= 100) {
                 usersWithRank.add(user);
-            } else throw new CustomValidationException("No users with rank 100+ were found.");
+            }
         }
         return usersWithRank.size();
     }

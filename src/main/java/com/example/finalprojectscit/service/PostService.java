@@ -21,23 +21,34 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final NewPostValidation postValidation;
+    private final UserService userService;
 
     @Autowired
-    public PostService(PostRepository postRepository, UserRepository userRepository, NewPostValidation postValidation) {
+    public PostService(PostRepository postRepository, UserRepository userRepository, NewPostValidation postValidation, UserService userService) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.postValidation = postValidation;
+        this.userService = userService;
     }
 
-    //TODO - CHECK FUNCTIONALITY
     public void createPost(Post post) {
+        int id = userService.findCurrentUser().getId();
         postValidation.validatePost(post);
         LocalDate now = LocalDate.now();
         post.setPost_date(now);
         post.setLiked(false);
         post.setLikes(0);
+        setUserRankWhenPost(id);
         postRepository.save(post);
     }
+
+    private void setUserRankWhenPost(int id) {
+        User user = userService.findById(id);
+        int newRanking = user.getPosts().size() * 5;
+        user.setRanking(newRanking);
+        userRepository.save(user);
+    }
+
 
     public List<Post> findAll() {
         return postRepository.findAll();

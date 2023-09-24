@@ -47,22 +47,6 @@ public class UserService {
         userRepository.save(user);
     }
 
-
-    //todo: sa fac acelasi lucru dar pentru postari: afisate in functie de rankig-ul userului
-    public List<User> usersByRank() {
-        List<User> users = userRepository.findAll();
-
-        List<User> filteredUsers = users.stream()
-                .filter(user -> user.getRanking() > 5)
-                .toList();
-
-        return filteredUsers.stream()
-                .sorted(Comparator.comparing(User::getRanking))
-                .collect(Collectors.toList());
-    }
-
-
-    //todo: check if ok when logged in
     public User findCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
@@ -72,7 +56,6 @@ public class UserService {
     public void deleteUser() {
         User user = findCurrentUser();
         int userId = user.getId();
-        //todo:check if working like that
         List<Post> userPosts = postRepository.findByUserId(userId);
         postRepository.deleteAll(userPosts);
 
@@ -108,7 +91,6 @@ public class UserService {
         }
     }
 
-    //todo: make more verifications
     public List<User> findActiveUsers() {
         List<User> all = userRepository.findAll();
         List<User> active = new ArrayList<>();
@@ -120,7 +102,6 @@ public class UserService {
         return active;
     }
 
-    //todo: make more verifications
     public List<User> findInactiveUsers() {
         List<User> all = userRepository.findAll();
         List<User> inactive = new ArrayList<>();
