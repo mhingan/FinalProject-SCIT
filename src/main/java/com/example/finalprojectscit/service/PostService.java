@@ -36,8 +36,6 @@ public class PostService {
         postValidation.validatePost(post);
         LocalDate now = LocalDate.now();
         post.setPost_date(now);
-        post.setLiked(false);
-        post.setLikes(0);
         setUserRankWhenPost(id);
         postRepository.save(post);
     }
@@ -81,34 +79,6 @@ public class PostService {
             }
         }
         return postsWitName;
-    }
-
-    //TODO - CHECK FUNCTIONALITY
-    //todo: not working fine
-    public void likePost(Post post, User user) {
-        int totalLikes = post.getLikes();
-        int userRankingInitial = user.getRanking();
-
-        if (!post.isLiked()) {
-            totalLikes++;
-            post.setLiked(true);
-            post.setLikes(totalLikes);
-
-            if (totalLikes > 5) {
-                user.setRanking(userRankingInitial + 5);
-            }
-        } else {
-            totalLikes--;
-            post.setLiked(false);
-            post.setLikes(totalLikes);
-
-            if (totalLikes <= 5) {
-                user.setRanking(userRankingInitial - 5);
-            }
-        }
-
-        postRepository.save(post);
-        userRepository.save(user);
     }
 
 
