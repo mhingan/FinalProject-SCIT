@@ -93,25 +93,5 @@ public class UserController {
         return "redirect:/my-profile";
     }
 
-    @PostMapping("/add-to-favorite/{id}")
-    public String addToFavorite(@PathVariable("id")int id){
-        User user = userService.findCurrentUser();
-        Post post = postService.findById(id);
-        postService.addToFavorites(post.getId(), user.getId());
-
-        return "post/favorites";
-    }
-
-    @GetMapping("/favorites")
-    public String getFavoritePosts(Model model){
-        int id = userService.findCurrentUser().getId();
-        List<Post> allPosts = postService.findFavorites(id);
-        model.addAttribute("allPosts", allPosts);
-
-        return "post/favorites";
-    }
-
-
-
 
 }
