@@ -43,25 +43,21 @@ public class StatisticsService {
         return userService.findInactiveUsers().size();
     }
 
-    //todo: think twice daca sa pun sau nu asta (prea mult de implementat cu controller si html)
-    public int getUsersWithRank(int rank) {
+    public int getUsersWithRank100() {
         List<User> activeUsers = userService.findActiveUsers();
         List<User> usersWithRank = new ArrayList<>();
         for (User user : activeUsers) {
-            if (user.getRanking() == rank) {
+            if (user.getRanking() == 100) {
                 usersWithRank.add(user);
-            } else throw new CustomValidationException("No users with rank " + rank + " were found.");
+            } else throw new CustomValidationException("No users with rank 100+ were found.");
         }
         return usersWithRank.size();
     }
 
-    //Statistics for post:
-    //all posts
     public int allPosts() {
         return postService.findAll().size();
     }
 
-    //all today's posts
     public int allTodaysPosts() {
         LocalDate today = LocalDate.now();
         List<Post> all = postService.findAll();
@@ -75,20 +71,5 @@ public class StatisticsService {
         return todayPosts.size();
     }
 
-    //todo: check if is working, else delete it
-    //media postarilor pe zi
-    public int postsAnnualMedia() {
-        int media = 0;
-        int currentYear = LocalDate.now().getYear();
-        List<Post> all = postService.findAll();
-        List<Post> thisYear = new ArrayList<>();
-        for (Post post : all) {
-            if (post.getPost_date().getYear() == currentYear) {
-                thisYear.add(post);
-            }
-
-        }
-        return thisYear.size() % 365;
-    }
 
 }
