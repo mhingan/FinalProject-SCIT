@@ -12,7 +12,6 @@ import java.time.LocalDate;
 
 @Controller
 public class StatisticsController {
-    //todo: controllers
     private final StatisticsService service;
 
     @Autowired

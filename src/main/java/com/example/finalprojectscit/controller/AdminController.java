@@ -13,12 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-//TODO: ADD USER A NEW FIELD: DEACTIVATED-TO CAN DELETE THE USER
-//todo: make a deactivate account request page for admin
 
 @Controller
 public class AdminController {
-    //admin-panel (see users, statistics)
     private final UserRepository userRepository;
     private final PostRepository postRepository;
     private final UserService userService;
@@ -37,7 +34,6 @@ public class AdminController {
     }
 
 
-    //get users page
     @GetMapping("/admin/active-users")
     public String getAllActiveUsers(Model model) {
         List<User> all = userService.findActiveUsers();
@@ -45,7 +41,6 @@ public class AdminController {
         return "admin/users";
     }
 
-    //todo: later
     @GetMapping("/admin/inactive-users")
     public String getAllInactiveUsers(Model model) {
         List<User> all = userService.findInactiveUsers();
@@ -53,17 +48,15 @@ public class AdminController {
         return "admin/users";
     }
 
-    //getManageUserPage
     @GetMapping("/admin/manage/{id}")
-    public String getManageUserPage(@PathVariable("id")int id, Model model){
-        //todo: change throw custom exception
-        User user = userRepository.findById(id).orElseThrow(()->new CustomValidationException("No user found"));
+    public String getManageUserPage(@PathVariable("id") int id, Model model) {
+        User user = userRepository.findById(id).orElseThrow(() -> new CustomValidationException("No user found"));
         model.addAttribute("user", user);
         return "admin/manage-user-page";
     }
 
     @PostMapping("/admin/manage/setActive/{id}")
-    public String setUserActive(@PathVariable("id") int id){
+    public String setUserActive(@PathVariable("id") int id) {
         User user = userService.findById(id);
         userService.setUserActive(id);
         return "redirect:/admin/active-users";
@@ -71,12 +64,11 @@ public class AdminController {
     }
 
     @PostMapping("/admin/manage/setInactive/{id}")
-    public String setUserInactive(@PathVariable("id")int id){
+    public String setUserInactive(@PathVariable("id") int id) {
         User user = userService.findById(id);
         userService.setUserInactive(id);
         return "redirect:/admin/inactive-users";
     }
-
 
 
 }

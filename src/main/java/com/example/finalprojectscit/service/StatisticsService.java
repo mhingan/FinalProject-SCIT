@@ -1,6 +1,5 @@
 package com.example.finalprojectscit.service;
 
-import com.example.finalprojectscit.exception.CustomValidationException;
 import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.PostRepository;
@@ -27,18 +26,14 @@ public class StatisticsService {
         this.postService = postService;
     }
 
-    //Statistics for user:
-    //all users (active&inactive)
     public int allUsers() {
         return userRepository.findAll().size();
     }
 
-    //all active users
     public int allActiveUsers() {
         return userService.findActiveUsers().size();
     }
 
-    //all inactive users
     public int allInactiveUsers() {
         return userService.findInactiveUsers().size();
     }

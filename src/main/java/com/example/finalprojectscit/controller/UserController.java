@@ -23,19 +23,16 @@ public class UserController {
         this.postService = postService;
     }
 
-    //index: logout
     @GetMapping("/")
     public String getIndexLogout() {
         return "index";
     }
 
-    //login-get
     @GetMapping("/login")
     public String getLoginPage() {
         return "login";
     }
 
-    //getDashboard
     @GetMapping("/dashboard")
     public String getDashboard(Model model) {
 
@@ -46,13 +43,11 @@ public class UserController {
     }
 
 
-    //getSignUp page
     @GetMapping("/signup")
     public String getSignUpPage() {
         return "signup";
     }
 
-    //send signupRequest
     @PostMapping("/signup")
     public String sendSignUpRequest(@RequestParam("first_name") String first_name,
                                     @RequestParam("last_name") String last_name,
@@ -72,7 +67,6 @@ public class UserController {
     }
 
 
-    //getProfile page
     @GetMapping("/my-profile")
     public String getProfilePage(Model model) {
         User user = userService.findCurrentUser();
@@ -80,7 +74,6 @@ public class UserController {
         return "profile";
     }
 
-    //send update info request - v1
     @RequestMapping(value = "/my-profile", method = RequestMethod.POST)
     public String sendUpdateDataRequest(@ModelAttribute User user) {
         User existingUser = userService.findCurrentUser();
