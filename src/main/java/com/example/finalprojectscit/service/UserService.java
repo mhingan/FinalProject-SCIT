@@ -17,13 +17,13 @@ import java.util.List;
 
 @Service
 public class UserService {
-    private final PostRepository postRepository;
     private final UserRepository userRepository;
-    private NewUserValidation newUserValidation;
+    private final NewUserValidation newUserValidation;
+
+
 
     @Autowired
-    public UserService(PostRepository postRepository, UserRepository userRepository, NewUserValidation newUserValidation) {
-        this.postRepository = postRepository;
+    public UserService(UserRepository userRepository, NewUserValidation newUserValidation) {
         this.userRepository = userRepository;
         this.newUserValidation = newUserValidation;
     }
@@ -51,17 +51,9 @@ public class UserService {
         return (User) userRepository.findByEmail(currentUserName).orElse(null);
     }
 
-    public void deleteUser() {
-        User user = findCurrentUser();
-        int userId = user.getId();
-        List<Post> userPosts = postRepository.findByUserId(userId);
-        postRepository.deleteAll(userPosts);
-
-        if (user.getPosts().isEmpty()) {
+    public void deleteUser(int id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new CustomValidationException("no user found"));
             userRepository.delete(user);
-        } else {
-            throw new CustomValidationException("User cannot be deleted. Associated posts found in db.");
-        }
 
     }
 
@@ -93,7 +85,7 @@ public class UserService {
         List<User> all = userRepository.findAll();
         List<User> active = new ArrayList<>();
         for (User user : all) {
-            if (user.is_active()) {
+            if (user.is_active()&&user.getRole().equals("USER")) {
                 active.add(user);
             }
         }
@@ -104,7 +96,7 @@ public class UserService {
         List<User> all = userRepository.findAll();
         List<User> inactive = new ArrayList<>();
         for (User user : all) {
-            if (!user.is_active()) {
+            if (!user.is_active()&&user.getRole().equals("USER")) {
                 inactive.add(user);
             }
         }
