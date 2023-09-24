@@ -2,9 +2,13 @@ package com.example.finalprojectscit.controller;
 
 import com.example.finalprojectscit.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.time.LocalDate;
 
 @Controller
 public class StatisticsController {
@@ -37,4 +41,15 @@ public class StatisticsController {
 
         return "admin/statistics";
     }
+
+    @GetMapping("/admin/statistics/getPostsBetween")
+    public String getPostsBetween(@Param("start") LocalDate start,
+                                  @Param("end") LocalDate end, Model model) {
+        int postsNumber = service.allPostsInTimeInterval(start, end);
+        model.addAttribute("postsNumber", postsNumber);
+
+        return "admin/statistics";
+    }
+
+
 }
