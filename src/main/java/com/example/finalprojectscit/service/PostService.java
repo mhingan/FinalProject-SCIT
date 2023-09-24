@@ -35,6 +35,7 @@ public class PostService {
         int id = userService.findCurrentUser().getId();
         postValidation.validatePost(post);
         LocalDate now = LocalDate.now();
+        post.setFavorites(0);
         post.setPost_date(now);
         setUserRankWhenPost(id);
         postRepository.save(post);
@@ -110,5 +111,25 @@ public class PostService {
         return matchingPosts;
     }
 
+    //todo: check if is working like that
+    List<Post> favorites = new ArrayList<>();
 
+    public void addToFavorites(int postId, int userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomValidationException("No user found with this id"));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new CustomValidationException("No post found with this id"));
+        List<Post> all = postRepository.findAll();
+        for (Post post1 : favorites) {
+            if (post.getId() != post1.getId()) {
+                favorites.add(post);
+                post.setFavorites(post.getFavorites() + 1);
+                postRepository.save(post);
+            } else {
+                favorites.remove(post);
+            }
+        }
+    }
+
+    public List<Post> findFavorites(int id) {
+        return favorites;
+    }
 }

@@ -38,7 +38,6 @@ public class UserController {
     //getDashboard
     @GetMapping("/dashboard")
     public String getDashboard(Model model) {
-        //todo:sort by user rank and date added
 
         List<Post> allPosts = postService.findAll();
         model.addAttribute("allPosts", allPosts);
@@ -92,6 +91,24 @@ public class UserController {
 
         userService.update(existingUser);
         return "redirect:/my-profile";
+    }
+
+    @PostMapping("/add-to-favorite/{id}")
+    public String addToFavorite(@PathVariable("id")int id){
+        User user = userService.findCurrentUser();
+        Post post = postService.findById(id);
+        postService.addToFavorites(post.getId(), user.getId());
+
+        return "post/favorites";
+    }
+
+    @GetMapping("/favorites")
+    public String getFavoritePosts(Model model){
+        int id = userService.findCurrentUser().getId();
+        List<Post> allPosts = postService.findFavorites(id);
+        model.addAttribute("allPosts", allPosts);
+
+        return "post/favorites";
     }
 
 
