@@ -6,11 +6,10 @@ import com.example.finalprojectscit.repository.PostRepository;
 import com.example.finalprojectscit.repository.UserRepository;
 import com.example.finalprojectscit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -68,6 +67,14 @@ public class AdminController {
         User user = userService.findById(id);
         userService.setUserInactive(id);
         return "redirect:/admin/inactive-users";
+    }
+
+    @RequestMapping(value = "/admin/delete-user/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'ADMIN-MANAGER')")
+    public String deleteUser(@PathVariable("id") int id) {
+        userService.findById(id);
+        userService.deleteUser();
+        return "admin/admin-panel";
     }
 
 
