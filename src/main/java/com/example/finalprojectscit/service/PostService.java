@@ -57,18 +57,6 @@ public class PostService {
         return postRepository.findById(id).orElseThrow(() -> new CustomValidationException("No post found with id: " + id));
     }
 
-    public List<Post> findByCategory(String category) {
-        List<Post> postsInCategory = new ArrayList<>();
-        for (Post post : postRepository.findAll()) {
-            if (post.getCategory().equals(category)) {
-                postsInCategory.add(post);
-            } else {
-                throw new CustomValidationException("No posts found in this category: " + category);
-            }
-        }
-        return postsInCategory;
-    }
-
 
     public List<Post> findAllPostsOfAUser(User user) {
         return user.getPosts();
