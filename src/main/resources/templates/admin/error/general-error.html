@@ -41,8 +41,9 @@
 </head>
 <body>
 <div class="error-container">
-  <h1 class="display-4">Error <span th:text="${errorCode}"></span></h1>
+  <p><h2>Ooops!</h2>Looks like there was a problem, try again!</p>
   <p class="lead" th:text="${errorMessage}"></p>
+
   <div class="back-button">
     <a href="#" onclick="history.back();" class="btn btn-primary">Back</a>
   </div>
