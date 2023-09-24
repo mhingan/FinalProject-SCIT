@@ -5,6 +5,7 @@ import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.service.PostService;
 import com.example.finalprojectscit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +35,7 @@ public class UserController {
     }
 
     @GetMapping("/dashboard")
+    @PreAuthorize("hasAnyAuthority('USER')")
     public String getDashboard(Model model) {
 
         List<Post> allPosts = postService.findAll();
@@ -68,6 +70,7 @@ public class UserController {
 
 
     @GetMapping("/my-profile")
+    @PreAuthorize("hasAnyAuthority('USER')")
     public String getProfilePage(Model model) {
         User user = userService.findCurrentUser();
         model.addAttribute("user", user);
@@ -75,6 +78,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/my-profile", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('USER')")
     public String sendUpdateDataRequest(@ModelAttribute User user) {
         User existingUser = userService.findCurrentUser();
 
