@@ -44,12 +44,9 @@ public class PostController {
 
         postService.createPost(post);
 
-//        return "post/my-posts";
-        //todo: chanage return file
-        return "index";
+        return "post/my-posts";
     }
 
-    //view - all posts of a user
     @GetMapping("/my-posts")
     public String getAllCurrentUserPosts(Model model) {
         User user = userService.findCurrentUser();
@@ -68,7 +65,6 @@ public class PostController {
     }
 
 
-    //send update request
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String sendEditRequest(@PathVariable("id") int id, @ModelAttribute Post post) {
         Post existingPost = postService.findById(id);

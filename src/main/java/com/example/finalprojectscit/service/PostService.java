@@ -69,19 +69,6 @@ public class PostService {
         return postsInCategory;
     }
 
-    //TODO - CHECK FUNCTIONALITY
-    public List<Post> findByTitle(String name) {
-        List<Post> postsWitName = new ArrayList<>();
-        for (Post post : postRepository.findAll()) {
-            if (post.getTitle().matches(name)) {
-                postsWitName.add(post);
-            } else {
-                throw new CustomValidationException("No post with this title found: " + name);
-            }
-        }
-        return postsWitName;
-    }
-
 
     public List<Post> findAllPostsOfAUser(User user) {
         return user.getPosts();
@@ -100,7 +87,6 @@ public class PostService {
     }
 
 
-    //search by title
     public List<Post> searchByTitle(String searchWord) {
         List<Post> allPosts = postRepository.findAll();
 
