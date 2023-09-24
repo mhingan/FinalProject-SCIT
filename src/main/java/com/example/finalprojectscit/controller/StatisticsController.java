@@ -23,17 +23,17 @@ public class StatisticsController {
         int allUsers = service.allUsers();
         int activeUsers = service.allActiveUsers();
         int inactiveUsers = service.allInactiveUsers();
+        int rankUsers = service.getUsersWithRank100();
         //post
         int allPosts = service.allPosts();
         int allToday = service.allTodaysPosts();
-        int media = service.postsAnnualMedia();
 
         model.addAttribute("allUsers", allUsers);
         model.addAttribute("activeUsers", activeUsers);
         model.addAttribute("inactiveUsers", inactiveUsers);
         model.addAttribute("allPosts", allPosts);
         model.addAttribute("allToday", allToday);
-        model.addAttribute("media", media);
+        model.addAttribute("rankUsers", rankUsers);
 
         return "admin/statistics";
     }

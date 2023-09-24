@@ -75,6 +75,11 @@
         <td>Total number of Inactive users</td>
         <td><span th:text="${inactiveUsers}"></span></td>
     </tr>
+    <tr>
+        <td>USER</td>
+        <td>VIP Users (rank 100+)</td>
+        <td><span th:text="${rankUsers}"></span></td>
+    </tr>
 </table>
 <h2>Posts</h2>
 <table class="table">
@@ -94,11 +99,6 @@
         <td>POST</td>
         <td>Total number of today's posts</td>
         <td><span th:text="${allToday}"></span></td>
-    </tr>
-    <tr>
-        <td>POST</td>
-        <td>Media /year</td>
-        <td><span th:text="${media}"></span></td>
     </tr>
 </table>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/js/bootstrap.min.js"></script>
