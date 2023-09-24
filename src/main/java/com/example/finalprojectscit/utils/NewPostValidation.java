@@ -12,18 +12,18 @@ public class NewPostValidation {
 
     }
 
-    private void validate_description(Post post) {
+     void validate_description(Post post) {
         String description = post.getDescription();
         if (description.isEmpty()) {
             throw new CustomValidationException("Description is empty");
         }
-        if (description.length() > 1000) {
+        if (description.length() > 500) {
             throw new CustomValidationException("Description is too long");
         }
     }
 
 
-    private void validate_title(Post post) {
+     void validate_title(Post post) {
         String postTitle = post.getTitle();
         if (postTitle.isEmpty()) {
             throw new CustomValidationException("Title is empty");
