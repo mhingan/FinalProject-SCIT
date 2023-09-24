@@ -72,8 +72,7 @@ public class AdminController {
     @RequestMapping(value = "/admin/delete-user/{id}", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'ADMIN-MANAGER')")
     public String deleteUser(@PathVariable("id") int id) {
-        userService.findById(id);
-        userService.deleteUser();
+        userService.deleteUser(id);
         return "admin/admin-panel";
     }
 
