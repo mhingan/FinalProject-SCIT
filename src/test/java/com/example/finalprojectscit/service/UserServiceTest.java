@@ -7,6 +7,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -152,10 +156,60 @@ class UserServiceTest {
     }
 
     @Test
-    void findActiveUsers() {
+    void test_find_all_active_users_no_users() {
+        List<User> userList = new ArrayList<>();
+
+        when(userService.findActiveUsers()).thenReturn(userList);
+
+        List<User> result = userService.findActiveUsers();
+
+        assertEquals(0, result.size());
+        System.out.println("Test: Find all active users: No users => OK");
     }
 
     @Test
-    void findInactiveUsers() {
+    void test_find_all_active_users_no_with_active_users() {
+        User user = new User();
+        user.set_active(false);
+        User user2 = new User();
+        user2.set_active(false);
+
+        List<User> userList = new ArrayList<>();
+        userList.add(user2);
+        userList.add(user);
+
+        when(userService.findActiveUsers()).thenReturn(userList);
+
+        List<User> result = userService.findActiveUsers();
+
+        assertEquals(0, result.size());
+
+        System.out.println("Test: Find all active users: No users => OK");
+    }
+
+    @Test
+    void test_find_all_active_user_success() {
+        User user = new User();
+        user.setRole("USER");
+        user.set_active(true);
+        User user2 = new User();
+        user2.setRole("USER");
+        user2.set_active(true);
+
+        List<User> userList = new ArrayList<>();
+        userList.add(user2);
+        userList.add(user);
+
+        when(userService.findActiveUsers()).thenReturn(userList);
+
+        List<User> result = userService.findActiveUsers();
+
+        assertEquals(2, result.size());
+
+        System.out.println("Test: Find all active users: With active user => OK");
+    }
+
+    @Test
+    void test_find_all_inactive_users() {
     }
 }
