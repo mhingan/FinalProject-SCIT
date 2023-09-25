@@ -64,7 +64,91 @@ class NewUserValidationTest {
 
 
     @Test
-    void validate_name() {
+    void validate_name_success() {
+        User user = User.builder()
+                .first_name("Mihai")
+                .last_name("Hingan")
+                .build();
 
+        assertDoesNotThrow(() -> newUserValidation.validate_name(user));
+        System.out.println("Test: User: Name: Valid first & last name => OK");
+    }
+
+    @Test
+    void validate_name_empty_both(){
+        User user = User.builder()
+                .first_name("")
+                .last_name("")
+                .build();
+
+        assertThrows(CustomValidationException.class, () -> {
+            newUserValidation.validate_name(user);
+        });
+        System.out.println("Test: User: Name: Both empty => OK");
+    }
+
+    @Test
+    void validate_name_empty_first_name(){
+        User user = User.builder()
+                .first_name("")
+                .last_name("Hingan")
+                .build();
+
+        assertThrows(CustomValidationException.class, () -> {
+            newUserValidation.validate_name(user);
+        });
+        System.out.println("Test: User: Name: First Name empty => OK");
+    }
+
+    @Test
+    void validate_name_empty_last_name(){
+        User user = User.builder()
+                .first_name("Mihai")
+                .last_name("")
+                .build();
+
+        assertThrows(CustomValidationException.class, () -> {
+            newUserValidation.validate_name(user);
+        });
+        System.out.println("Test: User: Name: Last empty => OK");
+    }
+
+    @Test
+    void validate_name_longer_than_20(){
+        User user = User.builder()
+                .first_name("Name Name Name Name ")
+                .last_name("Name Name Name Name ")
+                .build();
+
+        assertThrows(CustomValidationException.class, () -> {
+            newUserValidation.validate_name(user);
+        });
+        System.out.println("Test: User: Name: Both longer than 20 => OK");
+    }
+
+    @Test
+    void validate_first_name_longer_than_20(){
+        User user = User.builder()
+                .first_name("Name Name Name Name  ")
+                .last_name("Test")
+                .build();
+
+        assertThrows(CustomValidationException.class, () -> {
+            newUserValidation.validate_name(user);
+        });
+        System.out.println("Test: User: Name: First name longer than 20 => OK");
+    }
+
+    @Test
+    void validate_last_name_longer_than_20(){
+        User user = User.builder()
+                .first_name("test")
+                .last_name("Name Name Name Name  ")
+                .build();
+
+        assertThrows(CustomValidationException.class, () -> {
+            newUserValidation.validate_name(user);
+        });
+        System.out.println("Test: User: Name: Last name longer than 20 => OK");
     }
 }
