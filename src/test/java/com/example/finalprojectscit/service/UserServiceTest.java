@@ -184,7 +184,7 @@ class UserServiceTest {
 
         assertEquals(0, result.size());
 
-        System.out.println("Test: Find all active users: No users => OK");
+        System.out.println("Test: Find all active users: No active users => OK");
     }
 
     @Test
@@ -211,5 +211,55 @@ class UserServiceTest {
 
     @Test
     void test_find_all_inactive_users() {
+        User user = new User();
+        user.setRole("USER");
+        user.set_active(false);
+        User user2 = new User();
+        user2.setRole("USER");
+        user2.set_active(false);
+
+        List<User> userList = new ArrayList<>();
+        userList.add(user2);
+        userList.add(user);
+
+        when(userService.findInactiveUsers()).thenReturn(userList);
+
+        List<User> result = userService.findInactiveUsers();
+
+        assertEquals(2, result.size());
+
+        System.out.println("Test: Find all inactive users: With inactive user => OK");
+    }
+
+    @Test
+    void test_find_all_inactive_users_no_users() {
+        List<User> userList = new ArrayList<>();
+
+        when(userService.findInactiveUsers()).thenReturn(userList);
+
+        List<User> result = userService.findInactiveUsers();
+
+        assertEquals(0, result.size());
+        System.out.println("Test: Find all inactive users: No users => OK");
+    }
+
+    @Test
+    void test_find_all_inactive_users_with_no_inactive_users() {
+        User user = new User();
+        user.set_active(true);
+        User user2 = new User();
+        user2.set_active(true);
+
+        List<User> userList = new ArrayList<>();
+        userList.add(user2);
+        userList.add(user);
+
+        when(userService.findInactiveUsers()).thenReturn(userList);
+
+        List<User> result = userService.findInactiveUsers();
+
+        assertEquals(0, result.size());
+
+        System.out.println("Test: Find all inactive users: No inactive users => OK");
     }
 }
