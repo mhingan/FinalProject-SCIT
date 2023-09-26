@@ -1,9 +1,7 @@
 package com.example.finalprojectscit.service;
 
 import com.example.finalprojectscit.exception.CustomValidationException;
-import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
-import com.example.finalprojectscit.repository.PostRepository;
 import com.example.finalprojectscit.repository.UserRepository;
 import com.example.finalprojectscit.utils.NewUserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,4 +100,7 @@ public class UserService {
         }
         return inactive;
     }
+
+
+
 }
