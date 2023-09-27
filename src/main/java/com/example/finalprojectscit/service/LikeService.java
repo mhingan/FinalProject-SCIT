@@ -1,6 +1,5 @@
 package com.example.finalprojectscit.service;
 
-import com.example.finalprojectscit.exception.CustomValidationException;
 import com.example.finalprojectscit.model.Like;
 import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
@@ -23,8 +22,6 @@ public class LikeService {
         this.postService = postService;
         this.userService = userService;
     }
-
-
 
 
     public void likePost(Post post, User user) {
@@ -53,6 +50,7 @@ public class LikeService {
                     //salvez like in db
                 }
             }
+
         } else {
             // daca nu a dat like, adaug in listam
             Like newLike = new Like();
@@ -65,8 +63,11 @@ public class LikeService {
         postService.updatePost(post);
     }
 
-    public int getAllLikes(Post post){
+
+
+    public int getAllLikes(Post post) {
         return post.getLikes().size();
     }
 
 }
+
