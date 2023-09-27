@@ -43,6 +43,13 @@ public class UserController {
     public String getDashboard(Model model) {
         List<Post> allPosts = postService.findAll();
 
+        //nu am gasit alta metoda decat sa pun for-ul asta aici
+        //todo: sa mai caut alte metode
+        for (Post post : allPosts) {
+           int likes =likeService.getAllLikes(post);
+            post.setFavorites(likes);
+        }
+
         model.addAttribute("allPosts", allPosts);
 
 
@@ -98,19 +105,18 @@ public class UserController {
 
     @PostMapping("/{postId}/like")
     public String likePost(@PathVariable("postId") int postId) {
-        // Retrieve the current user and post by postId
         User user = userService.findCurrentUser();
         Post post = postService.findById(postId);
 
         try {
             likeService.likePost(post, user);
         } catch (CustomValidationException customValidationException) {
-            // Handle any custom validation exception
-            // You can redirect to an error page or perform other actions here
             return "admin/error/general-error";
         }
 
-        // Redirect back to the page displaying the posts
-        return "redirect:/dashboard"; // Adjust the URL as needed
+        return "redirect:/dashboard";
     }
+
+
+
 }
