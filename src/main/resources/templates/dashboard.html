@@ -85,6 +85,7 @@
                 <p class="post-date" th:text="'Created at: ' + ${#temporals.format(post.post_date, 'yyyy-MM-dd')}"></p>
                 <p th:text="'Category: ' + ${post.category}"></p>
                 <p th:text="'Description: ' + ${post.description}"></p>
+                <p th:text="${post.favorites} + ' likes'"></p>
                 <form method="post" th:action="@{'/' + ${post.id} + '/like'}">
                     <button type="submit" class="btn btn-success">Like</button>
                 </form>
