@@ -9,7 +9,7 @@ public class NewPostValidation {
     public void validatePost(Post post) {
         validate_title(post);
         validate_description(post);
-
+        validate_category(post);
     }
 
      void validate_description(Post post) {
@@ -31,6 +31,24 @@ public class NewPostValidation {
         if (postTitle.length() > 50) {
             throw new CustomValidationException("Title is too long");
         }
+    }
+
+    void validate_category(Post post){
+        String[] categories = {"Food", "Self-Improvement", "Travel", "Home&Garden", "Science&Education", "Literature", "Health", "Arts", "Technology", "Others"};
+        String postCategory = post.getCategory();
+        boolean categoryFound = false;
+
+        for (String category : categories) {
+            if (category.equals(postCategory)) {
+                categoryFound = true;
+                break;
+            }
+        }
+
+        if (!categoryFound) {
+            post.setCategory("Others");
+        }
+
     }
 
 }

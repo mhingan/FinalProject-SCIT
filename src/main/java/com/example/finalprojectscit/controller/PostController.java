@@ -50,7 +50,7 @@ public class PostController {
 
         postService.createPost(post);
 
-        return "post/my-posts";
+        return "redirect:dashboard";
     }
 
     @GetMapping("/my-posts")
@@ -99,6 +99,15 @@ public class PostController {
     @PreAuthorize("hasAnyAuthority('USER')")
     public String getByTitleMatch(@RequestParam("searchWord") String searchWord, Model model) {
         List<Post> allPosts = postService.searchByTitle(searchWord);
+        likeService.getAllLikes();
+        model.addAttribute("allPosts", allPosts);
+        return "dashboard";
+    }
+
+    @GetMapping("/dashboard/category")
+    @PreAuthorize("hasAnyAuthority('USER')")
+    public String getByCategory(@RequestParam("category") String category, Model model) {
+        List<Post> allPosts = postService.getByCategory(category);
         likeService.getAllLikes();
         model.addAttribute("allPosts", allPosts);
         return "dashboard";
