@@ -82,5 +82,12 @@ public class AdminController {
         return "admin/admin-panel";
     }
 
+    @RequestMapping(value = "/admin/set-user-as-admin/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public String changeUserRole(@PathVariable("id") int id) {
+        userService.changeUserRole(id);
+        return "admin/admin-panel";
+    }
+
 
 }
