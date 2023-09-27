@@ -76,6 +76,3 @@ To run this project locally, follow these steps:
 2. Set up a MySQL database and configure the application properties with the database connection details.
 3. Build and run the application using your preferred IDE or build tool (e.g., Maven).
 4. Access the application through a web browser at the specified port (default is `localhost:8080`).
-
-
-- Mihaita Hingan
