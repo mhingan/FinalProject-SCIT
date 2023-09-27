@@ -6,7 +6,6 @@
     <title>Delete Confirmation</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<button onclick="window.location.href='/admin/panel'" class="btn btn-secondary mt-2 ml-2">Back</button>
 <body>
 <div class="container mt-5">
     <div class="row">
@@ -37,6 +36,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Yellow info box -->
+    <div class="alert alert-warning mt-5" role="alert">
+        <p class="font-weight-bold">IMPORTANT ACTION:</p>
+        <p>Changing a user role will cause major security issues in our system. Make sure your line manager approved this change.</p>
+        <form id="admin-form" th:action="@{/admin/set-user-as-admin/{id}(id=${user.id})}" method="post">
+            <input type="submit" class="btn btn-warning text-white" value="CHANGE USER ROLE">
+        </form>
+    </div>
+
     <br/>
     <p class="text-muted">**IRREVERSIBLE ACTION: <br/>Deleting a user will permanently remove their data.</p>
     <form id="delete-form" th:action="@{/admin/delete-user/{id}(id=${user.id})}" method="post">
