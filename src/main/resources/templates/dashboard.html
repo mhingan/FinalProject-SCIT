@@ -25,7 +25,9 @@
             color: #777;
             font-size: 14px;
         }
-
+        a.nav-link {
+            color: #555; /* Set your desired hover color */
+        }
 
         .search-form {
             display: flex;
@@ -74,7 +76,6 @@
                 </li>
             </ul>
         </div>
-
         <form th:action="@{/dashboard/get_that_contains}" method="get" class="search-form">
             <div class="form-group search-input">
                 <input type="text" id="searchWord" name="searchWord" class="form-control" style="width: 300px">
@@ -83,6 +84,44 @@
         </form>
     </div>
 </nav>
+
+<div class="container mt-3">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard">All</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard/category?category=Food">Food</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard/category?category=Self-Improvement">Self-Improvement</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard/category?category=Travel">Travel</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard/category?category=Home&Garden">Home & Garden</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard/category?category=Science & Education">Science & Education</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard/category?category=Literature">Literature</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard/category?category=Health">Health</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard/category?category=Arts">Arts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard/category?category=Technology">Technology</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard/category?category=Others">Others</a>
+        </li>
+    </ul>
+</div>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
