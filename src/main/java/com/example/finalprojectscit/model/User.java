@@ -29,6 +29,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Post> posts;
+    @OneToMany(mappedBy = "user")
+    private List<Like> likes;
     private boolean is_active;
 
 

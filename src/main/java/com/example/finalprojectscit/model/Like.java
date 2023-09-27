@@ -6,29 +6,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Builder
 @Data
 @Entity
-@Table(name = "posts")
+@Table(name = "likes")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
+public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String title;
-    private String category;
-    private String description;
-    private Integer favorites;
-    @Column(columnDefinition = "DATE")
-    private LocalDate post_date;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<Like> likes;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
+    private Post post;
 }
