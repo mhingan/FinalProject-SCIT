@@ -39,11 +39,21 @@
 
     <!-- Yellow info box -->
     <div class="alert alert-warning mt-5" role="alert">
-        <p class="font-weight-bold">IMPORTANT ACTION:</p>
-        <p>Changing a user role will cause major security issues in our system. Make sure your line manager approved this change.</p>
-        <form id="admin-form" th:action="@{/admin/set-user-as-admin/{id}(id=${user.id})}" method="post">
-            <input type="submit" class="btn btn-warning text-white" value="CHANGE USER ROLE">
-        </form>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="font-weight-bold">IMPORTANT ACTION:</p>
+                <p>Changing a user role will cause major security issues in our system. Make sure your line manager approved this change.</p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <form id="admin-form" th:action="@{/admin/set-user-as-admin/{id}(id=${user.id})}" method="post">
+                    <input type="submit" class="btn btn-warning text-white" value="SET AS ADMIN">
+                </form>
+                <br/>
+                <form id="admin-form2" th:action="@{/admin/set-admin-as-users/{id}(id=${user.id})}" method="post">
+                    <input type="submit" class="btn btn-warning text-white" value="SET AS USER">
+                </form>
+            </div>
+        </div>
     </div>
 
     <br/>
