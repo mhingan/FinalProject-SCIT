@@ -2,6 +2,7 @@ package com.example.finalprojectscit.controller;
 
 import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
+import com.example.finalprojectscit.service.LikeService;
 import com.example.finalprojectscit.service.PostService;
 import com.example.finalprojectscit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,13 @@ import java.util.List;
 public class PostController {
     private final UserService userService;
     private final PostService postService;
+    private final LikeService likeService;
 
     @Autowired
-    public PostController(UserService userService, PostService postService) {
+    public PostController(UserService userService, PostService postService, LikeService likeService) {
         this.userService = userService;
         this.postService = postService;
+        this.likeService = likeService;
     }
 
 
@@ -87,6 +90,7 @@ public class PostController {
     @PreAuthorize("hasAnyAuthority('USER')")
     public String getByNewest(Model model) {
         List<Post> allPosts = postService.displayByNewest();
+        likeService.getAllLikes();
         model.addAttribute("allPosts", allPosts);
         return "dashboard";
     }
@@ -95,6 +99,7 @@ public class PostController {
     @PreAuthorize("hasAnyAuthority('USER')")
     public String getByTitleMatch(@RequestParam("searchWord") String searchWord, Model model) {
         List<Post> allPosts = postService.searchByTitle(searchWord);
+        likeService.getAllLikes();
         model.addAttribute("allPosts", allPosts);
         return "dashboard";
     }

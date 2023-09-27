@@ -54,8 +54,14 @@ public class LikeService {
     }
 
 
-    public int getAllLikes(Post post) {
-        return post.getLikes().size();
+    public int getAllLikes() {
+        List<Post>all = postService.findAll();
+        int likes = 0;
+        for(Post post: all){
+            likes = post.getLikes().size();
+            post.setFavorites(likes);
+        }
+        return likes;
     }
 
 }
