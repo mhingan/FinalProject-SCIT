@@ -15,16 +15,25 @@
 
         .tweet-box h4 {
             font-weight: bold;
+            margin-bottom: 5px; /* Added margin for separation */
         }
 
-        .tweet-box p {
-            margin-top: 10px;
+        .tweet-box .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px; /* Added margin for separation */
         }
 
         .tweet-box .post-date {
             color: #777;
             font-size: 14px;
         }
+
+        .tweet-box p {
+            margin-top: 10px;
+        }
+
         a.nav-link {
             color: #555; /* Set your desired hover color */
         }
@@ -37,11 +46,12 @@
         .search-input {
             margin-right: 10px;
         }
-        body{
+
+        body {
             background-color: rgb(231, 229, 229);
         }
 
-        .navbar{
+        .navbar {
             background-color: #477db6;
         }
     </style>
@@ -126,14 +136,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div th:each="post : ${allPosts}" class="tweet-box">
-                <h4 th:text="${post.title}"></h4>
-                <p class="post-date" th:text="'User: '+${post.user.id}"></p>
-                <p class="post-date" th:text="'Created at: ' + ${#temporals.format(post.post_date, 'yyyy-MM-dd')}"></p>
+                <div class="user-info">
+                    <h4 th:text="${post.title}"></h4>
+                    <p class="post-date" th:text="'Creator: '+${post.user.first_name + ' ' + post.user.last_name}"></p>
+                    <p class="post-date"
+                       th:text="'Created at: ' + ${#temporals.format(post.post_date, 'yyyy-MM-dd')}"></p>
+                </div>
                 <p th:text="'Category: ' + ${post.category}"></p>
                 <p th:text="'Description: ' + ${post.description}"></p>
-                <p th:text="${post.favorites} + ' likes'"></p>
+                <p th:text="${post.favorites} + ' kudos'"></p>
                 <form method="post" th:action="@{'/' + ${post.id} + '/like'}">
-                    <button type="submit" class="btn btn-success">Like</button>
+                    <button type="submit" class="btn btn-success">🎉 Kudos</button>
                 </form>
             </div>
         </div>
