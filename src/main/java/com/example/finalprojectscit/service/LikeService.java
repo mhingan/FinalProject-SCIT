@@ -1,5 +1,6 @@
 package com.example.finalprojectscit.service;
 
+import com.example.finalprojectscit.exception.CustomValidationException;
 import com.example.finalprojectscit.model.Like;
 import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
@@ -28,31 +29,20 @@ public class LikeService {
         int userId = user.getId();
         int postId = post.getId();
         List<Like> likes = post.getLikes();
-        //1. fac un boolean sa vad daca e like deja
         boolean userAlreadyLiked = false;
 
-        //iterate prin lista de likeuri si daca a dat like setez booleanul la true si ies din lista
         for (Like like : likes) {
             if (like.getUser().getId() == userId) {
                 userAlreadyLiked = true;
                 break;
             }
         }
-
+        //todo: not working
         if (userAlreadyLiked) {
-            // (presupun ca il scot cand da clikc din nou)
-            // dar, totusi, daca a dat like mai sus si e true booleanu, il scot din lista de likeuri
-            for (Iterator<Like> iterator = likes.iterator(); iterator.hasNext(); ) {
-                Like like = iterator.next();
-                if (like.getUser().getId() == userId) {
-                    iterator.remove();
-                    likeRepository.save(like);
-                    //salvez like in db
-                }
+            for (Like like : likes) {
+                likes.remove(like);
             }
-
         } else {
-            // daca nu a dat like, adaug in listam
             Like newLike = new Like();
             newLike.setUser(user);
             newLike.setPost(post);
@@ -62,7 +52,6 @@ public class LikeService {
 
         postService.updatePost(post);
     }
-
 
 
     public int getAllLikes(Post post) {
