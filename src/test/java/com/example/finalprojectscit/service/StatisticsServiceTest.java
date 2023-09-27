@@ -40,5 +40,49 @@ class StatisticsServiceTest {
         assertEquals(0, result);
     }
 
+    @Test
+    public void testGetUsersWithRank100_SomeUsersWithRank100() {
+        List<User> activeUsers = new ArrayList<>();
+        User user = User.builder()
+                .id(1)
+                .first_name("Ana")
+                .ranking(101)
+                .build();
+        User user2 = User.builder()
+                .id(2)
+                .first_name("Ana")
+                .ranking(99)
+                .build();
+        activeUsers.add(user2);
+        activeUsers.add(user);
 
+
+
+        Mockito.when(userRepository.findAllActive()).thenReturn(activeUsers);
+
+        int result = service.getUsersWithRank100();
+
+        assertEquals(1, result);
+    }
+
+
+    @Test
+    public void testGetUsersWithRank100_AllUsersWithRank100() {
+        User user = User.builder()
+                .ranking(110)
+                .build();
+        User user2 = User.builder()
+                .ranking(199)
+                .build();
+
+        List<User> activeUsers = new ArrayList<>();
+        activeUsers.add(user2);
+        activeUsers.add(user);
+
+        Mockito.when(userRepository.findAllActive()).thenReturn(activeUsers);
+
+        int result = service.getUsersWithRank100();
+
+        assertEquals(2, result);
+    }
 }
