@@ -43,12 +43,7 @@ public class UserController {
     public String getDashboard(Model model) {
         List<Post> allPosts = postService.findAll();
 
-        //nu am gasit alta metoda decat sa pun for-ul asta aici
-        //todo: sa mai caut alte metode
-        for (Post post : allPosts) {
-           int likes =likeService.getAllLikes(post);
-            post.setFavorites(likes);
-        }
+        likeService.getAllLikes();
 
         model.addAttribute("allPosts", allPosts);
 
