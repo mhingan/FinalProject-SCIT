@@ -34,7 +34,7 @@ public class NewPostValidation {
     }
 
     void validate_category(Post post){
-        String[] categories = {"Food", "Self-Improvement", "Travel", "Home&Garden", "Science&Education", "Literature", "Health", "Arts", "Technology", "Others"};
+        String[] categories = {"Food", "Self-Improvement", "Travel", "HomeGarden", "ScienceEducation", "Literature", "Health", "Arts", "Technology", "Others"};
         String postCategory = post.getCategory();
         boolean categoryFound = false;
 
