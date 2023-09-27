@@ -6,9 +6,7 @@ import com.example.finalprojectscit.repository.UserRepository;
 import com.example.finalprojectscit.utils.NewUserValidation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +56,7 @@ class StatisticsServiceTest {
 
 
 
-        Mockito.when(userRepository.findAllActive()).thenReturn(activeUsers);
+        Mockito.when(userRepository.findAll()).thenReturn(activeUsers);
 
         int result = service.getUsersWithRank100();
 
@@ -79,7 +77,7 @@ class StatisticsServiceTest {
         activeUsers.add(user2);
         activeUsers.add(user);
 
-        Mockito.when(userRepository.findAllActive()).thenReturn(activeUsers);
+        Mockito.when(userRepository.findAll()).thenReturn(activeUsers);
 
         int result = service.getUsersWithRank100();
 

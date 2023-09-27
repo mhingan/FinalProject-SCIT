@@ -1,7 +1,9 @@
 package com.example.finalprojectscit.controller;
 
+import com.example.finalprojectscit.exception.CustomValidationException;
 import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
+import com.example.finalprojectscit.service.LikeService;
 import com.example.finalprojectscit.service.PostService;
 import com.example.finalprojectscit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,13 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final PostService postService;
+    private final LikeService likeService;
 
     @Autowired
-    public UserController(UserService userService, PostService postService) {
+    public UserController(UserService userService, PostService postService, LikeService likeService) {
         this.userService = userService;
         this.postService = postService;
+        this.likeService = likeService;
     }
 
     @GetMapping("/")
@@ -37,9 +41,10 @@ public class UserController {
     @GetMapping("/dashboard")
     @PreAuthorize("hasAnyAuthority('USER')")
     public String getDashboard(Model model) {
-
         List<Post> allPosts = postService.findAll();
+
         model.addAttribute("allPosts", allPosts);
+
 
         return "dashboard";
     }
@@ -91,4 +96,21 @@ public class UserController {
     }
 
 
+    @PostMapping("/{postId}/like")
+    public String likePost(@PathVariable("postId") int postId) {
+        // Retrieve the current user and post by postId
+        User user = userService.findCurrentUser();
+        Post post = postService.findById(postId);
+
+        try {
+            likeService.likePost(post, user);
+        } catch (CustomValidationException customValidationException) {
+            // Handle any custom validation exception
+            // You can redirect to an error page or perform other actions here
+            return "admin/error/general-error";
+        }
+
+        // Redirect back to the page displaying the posts
+        return "redirect:/dashboard"; // Adjust the URL as needed
+    }
 }
