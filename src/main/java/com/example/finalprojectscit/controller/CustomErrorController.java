@@ -1,3 +1,6 @@
+/**
+ * @author Mihaita Hingan
+ */
 package com.example.finalprojectscit.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;

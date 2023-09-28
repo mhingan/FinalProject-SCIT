@@ -1,6 +1,8 @@
+/**
+ * @author Mihaita Hingan
+ */
 package com.example.finalprojectscit.service;
 
-import com.example.finalprojectscit.exception.CustomValidationException;
 import com.example.finalprojectscit.model.Like;
 import com.example.finalprojectscit.model.Post;
 import com.example.finalprojectscit.model.User;
@@ -8,7 +10,6 @@ import com.example.finalprojectscit.repository.LikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -55,9 +56,9 @@ public class LikeService {
 
 
     public int getAllLikes() {
-        List<Post>all = postService.findAll();
+        List<Post> all = postService.findAll();
         int likes = 0;
-        for(Post post: all){
+        for (Post post : all) {
             likes = post.getLikes().size();
             post.setFavorites(likes);
         }

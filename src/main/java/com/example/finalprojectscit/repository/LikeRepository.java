@@ -1,3 +1,6 @@
+/**
+ * @author Mihaita Hingan
+ */
 package com.example.finalprojectscit.repository;
 
 import com.example.finalprojectscit.model.Like;

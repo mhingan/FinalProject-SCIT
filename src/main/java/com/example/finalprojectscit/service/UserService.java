@@ -1,3 +1,6 @@
+/**
+ * @author Mihaita Hingan
+ */
 package com.example.finalprojectscit.service;
 
 import com.example.finalprojectscit.exception.CustomValidationException;
@@ -17,7 +20,6 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final NewUserValidation newUserValidation;
-
 
 
     @Autowired
@@ -51,7 +53,7 @@ public class UserService {
 
     public void deleteUser(int id) {
         User user = userRepository.findById(id).orElseThrow(() -> new CustomValidationException("no user found"));
-            userRepository.delete(user);
+        userRepository.delete(user);
 
     }
 
@@ -83,7 +85,7 @@ public class UserService {
         List<User> all = userRepository.findAll();
         List<User> active = new ArrayList<>();
         for (User user : all) {
-            if (user.is_active()&&user.getRole().equals("USER")) {
+            if (user.is_active() && user.getRole().equals("USER")) {
                 active.add(user);
             }
         }
@@ -94,7 +96,7 @@ public class UserService {
         List<User> all = userRepository.findAll();
         List<User> inactive = new ArrayList<>();
         for (User user : all) {
-            if (!user.is_active()&&user.getRole().equals("USER")) {
+            if (!user.is_active() && user.getRole().equals("USER")) {
                 inactive.add(user);
             }
         }
@@ -103,8 +105,8 @@ public class UserService {
 
 
     public void changeUserRoleToAdmin(int id) {
-        User user = userRepository.findById(id).orElseThrow(()->new CustomValidationException("No user found"));
-        if(user.getRole().equals("USER")&&user.is_active()){
+        User user = userRepository.findById(id).orElseThrow(() -> new CustomValidationException("No user found"));
+        if (user.getRole().equals("USER") && user.is_active()) {
             user.setRole("ADMIN");
             userRepository.save(user);
         } else {
@@ -113,9 +115,9 @@ public class UserService {
     }
 
     public void changeAdminRoleToUser(int id) {
-        User user = userRepository.findById(id).orElseThrow(()->new CustomValidationException("No user found"));
+        User user = userRepository.findById(id).orElseThrow(() -> new CustomValidationException("No user found"));
         int currentUserId = findCurrentUser().getId();
-        if(user.getRole().equals("ADMIN")&&user.is_active()&&user.getId()!=currentUserId){
+        if (user.getRole().equals("ADMIN") && user.is_active() && user.getId() != currentUserId) {
             user.setRole("USER");
             userRepository.save(user);
         } else {

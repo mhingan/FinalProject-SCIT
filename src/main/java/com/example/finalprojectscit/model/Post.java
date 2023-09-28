@@ -1,3 +1,6 @@
+/**
+ * @author Mihaita Hingan
+ */
 package com.example.finalprojectscit.model;
 
 import jakarta.persistence.*;

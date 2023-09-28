@@ -8,7 +8,6 @@ import com.example.finalprojectscit.exception.CustomValidationException;
 import com.example.finalprojectscit.model.User;
 import com.example.finalprojectscit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

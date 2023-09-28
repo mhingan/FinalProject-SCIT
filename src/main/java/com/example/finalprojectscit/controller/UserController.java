@@ -1,3 +1,6 @@
+/**
+ * @author Mihaita Hingan
+ */
 package com.example.finalprojectscit.controller;
 
 import com.example.finalprojectscit.exception.CustomValidationException;
@@ -44,9 +47,7 @@ public class UserController {
         List<Post> allPosts = postService.findAll();
 
         likeService.getAllLikes();
-
         model.addAttribute("allPosts", allPosts);
-
 
         return "dashboard";
     }
@@ -111,7 +112,6 @@ public class UserController {
 
         return "redirect:/dashboard";
     }
-
 
 
 }
