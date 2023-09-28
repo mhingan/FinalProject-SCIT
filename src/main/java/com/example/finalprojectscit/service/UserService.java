@@ -102,10 +102,21 @@ public class UserService {
     }
 
 
-    public void changeUserRole(int id) {
+    public void changeUserRoleToAdmin(int id) {
         User user = userRepository.findById(id).orElseThrow(()->new CustomValidationException("No user found"));
         if(user.getRole().equals("USER")&&user.is_active()){
             user.setRole("ADMIN");
+            userRepository.save(user);
+        } else {
+            throw new CustomValidationException("Cannot change user role");
+        }
+    }
+
+    public void changeAdminRoleToUser(int id) {
+        User user = userRepository.findById(id).orElseThrow(()->new CustomValidationException("No user found"));
+        int currentUserId = findCurrentUser().getId();
+        if(user.getRole().equals("ADMIN")&&user.is_active()&&user.getId()!=currentUserId){
+            user.setRole("USER");
             userRepository.save(user);
         } else {
             throw new CustomValidationException("Cannot change user role");

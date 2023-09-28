@@ -12,12 +12,14 @@
     </div>
 </nav>
 <div class="container mt-5">
-    <h2 class="text-center">Active Users</h2>
+    <h2 class="text-center">Users</h2>
     <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
             <th>Email</th>
+            <th>Role</th>
+            <th>Is active:</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -25,6 +27,8 @@
         <tr th:each="user : ${all}">
             <td th:text="${user.id}">User ID</td>
             <td th:text="${user.email}">Email</td>
+            <td th:text="${user.role}">Role</td>
+            <td th:text="${user._active}">Is active</td>
             <td>
                 <a th:href="@{'/admin/manage/' + ${user.id}}" class="btn btn-primary btn-sm">Manage User</a>
             </td>

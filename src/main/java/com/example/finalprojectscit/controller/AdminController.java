@@ -33,6 +33,13 @@ public class AdminController {
         return "admin/admin-panel";
     }
 
+    @GetMapping("/admin/all-users")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public String getAllUsers(Model model) {
+        List<User> all = userRepository.findAll();
+        model.addAttribute("all", all);
+        return "admin/users";
+    }
 
     @GetMapping("/admin/active-users")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -85,7 +92,14 @@ public class AdminController {
     @RequestMapping(value = "/admin/set-user-as-admin/{id}", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public String changeUserRole(@PathVariable("id") int id) {
-        userService.changeUserRole(id);
+        userService.changeUserRoleToAdmin(id);
+        return "admin/admin-panel";
+    }
+
+    @RequestMapping(value = "/admin/set-admin-as-user/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public String changeAdminRole(@PathVariable("id") int id) {
+        userService.changeAdminRoleToUser(id);
         return "admin/admin-panel";
     }
 
