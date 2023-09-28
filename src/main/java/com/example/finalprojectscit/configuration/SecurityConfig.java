@@ -1,11 +1,8 @@
-package com.example.finalprojectscit.configuration;
-
 /**
  * @author Mihaita Hingan
- * SecurityConfig - Configuration class for Spring Security.
- * This class defines the security configuration for the application, including security filter chains, authorization
- * rules, and password encoding.
  */
+package com.example.finalprojectscit.configuration;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -1,3 +1,6 @@
+/**
+ * @author Mihaita Hingan
+ */
 package com.example.finalprojectscit.utils;
 
 import com.example.finalprojectscit.exception.CustomValidationException;

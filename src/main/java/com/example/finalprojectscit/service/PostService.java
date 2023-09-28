@@ -1,3 +1,6 @@
+/**
+ * @author Mihaita Hingan
+ */
 package com.example.finalprojectscit.service;
 
 import com.example.finalprojectscit.comparators.PostDateComparator;
@@ -85,11 +88,11 @@ public class PostService {
         return matchingPosts;
     }
 
-    public List<Post> getByCategory(String category){
+    public List<Post> getByCategory(String category) {
         List<Post> all = postRepository.findAll();
         List<Post> postInCategory = new ArrayList<>();
-        for(Post post: all){
-            if(post.getCategory().equals(category)){
+        for (Post post : all) {
+            if (post.getCategory().equals(category)) {
                 postInCategory.add(post);
             }
         }

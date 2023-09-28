@@ -1,3 +1,6 @@
+/**
+ * @author Mihaita Hingan
+ */
 package com.example.finalprojectscit.comparators;
 
 import com.example.finalprojectscit.model.Post;

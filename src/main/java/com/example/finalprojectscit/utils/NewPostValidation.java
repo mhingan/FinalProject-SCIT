@@ -1,3 +1,6 @@
+/**
+ * @author Mihaita Hingan
+ */
 package com.example.finalprojectscit.utils;
 
 import com.example.finalprojectscit.exception.CustomValidationException;
@@ -12,7 +15,7 @@ public class NewPostValidation {
         validate_category(post);
     }
 
-     void validate_description(Post post) {
+    void validate_description(Post post) {
         String description = post.getDescription();
         if (description.isEmpty()) {
             throw new CustomValidationException("Description is empty");
@@ -23,7 +26,7 @@ public class NewPostValidation {
     }
 
 
-     void validate_title(Post post) {
+    void validate_title(Post post) {
         String postTitle = post.getTitle();
         if (postTitle.isEmpty()) {
             throw new CustomValidationException("Title is empty");
@@ -33,7 +36,7 @@ public class NewPostValidation {
         }
     }
 
-    void validate_category(Post post){
+    void validate_category(Post post) {
         String[] categories = {"Food", "Self-Improvement", "Travel", "HomeGarden", "ScienceEducation", "Literature", "Health", "Arts", "Technology", "Others"};
         String postCategory = post.getCategory();
         boolean categoryFound = false;
