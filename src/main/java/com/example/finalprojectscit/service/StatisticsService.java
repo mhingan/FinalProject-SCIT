@@ -69,16 +69,4 @@ public class StatisticsService {
         return todayPosts.size();
     }
 
-
-    public int allPostsInTimeInterval(LocalDate start, LocalDate end) {
-        List<Post> all = postService.findAll();
-        List<Post> postsInTimeInterval = new ArrayList<>();
-        for (Post post : all) {
-            if (post.getPost_date().isAfter(start) || post.getPost_date().isBefore(end)) {
-                postsInTimeInterval.add(post);
-            }
-        }
-        return postsInTimeInterval.size();
-    }
-
 }
