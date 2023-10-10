@@ -45,15 +45,7 @@ public class StatisticsController {
         return "admin/statistics";
     }
 
-    @GetMapping("/admin/statistics/getPostsBetween")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public String getPostsBetween(@Param("start") LocalDate start,
-                                  @Param("end") LocalDate end, Model model) {
-        int postsNumber = service.allPostsInTimeInterval(start, end);
-        model.addAttribute("postsNumber", postsNumber);
 
-        return "admin/statistics";
-    }
 
 
 }
